@@ -29,6 +29,32 @@ export default function LoginLocatarioPage() {
     confirmPassword: "",
   });
 
+  // Função para formatar telefone automaticamente
+  const formatTelefone = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 2) {
+      return numbers;
+    } else if (numbers.length <= 6) {
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+    } else if (numbers.length <= 10) {
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 6)}-${numbers.slice(6)}`;
+    } else {
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
+    }
+  };
+
+  // Validação de senha em tempo real
+  const validatePassword = (password: string) => {
+    return {
+      hasUpperCase: /[A-Z]/.test(password),
+      hasLowerCase: /[a-z]/.test(password),
+      hasNumber: /[0-9]/.test(password),
+      hasMinLength: password.length >= 6,
+    };
+  };
+
+  const passwordValidation = validatePassword(registerData.password);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -58,14 +84,42 @@ export default function LoginLocatarioPage() {
     e.preventDefault();
     setIsLoading(true);
 
-    if (registerData.password !== registerData.confirmPassword) {
-      toast.error("As senhas não coincidem.");
+    // Validação de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(registerData.email)) {
+      toast.error("Por favor, insira um email válido (ex: usuario@gmail.com)");
       setIsLoading(false);
       return;
     }
 
+    // Validação de telefone (formato brasileiro: (XX) XXXXX-XXXX ou (XX) XXXX-XXXX)
+    const telefoneRegex = /^\(\d{2}\)\s?\d{4,5}-?\d{4}$/;
+    const telefoneLimpo = registerData.telefone.replace(/\s/g, '');
+    if (!telefoneRegex.test(telefoneLimpo)) {
+      toast.error("Telefone inválido. Use o formato: (XX) XXXXX-XXXX");
+      setIsLoading(false);
+      return;
+    }
+
+    // Validação de senha
     if (registerData.password.length < 6) {
       toast.error("A senha deve ter no mínimo 6 caracteres.");
+      setIsLoading(false);
+      return;
+    }
+
+    const hasUpperCase = /[A-Z]/.test(registerData.password);
+    const hasLowerCase = /[a-z]/.test(registerData.password);
+    const hasNumber = /[0-9]/.test(registerData.password);
+
+    if (!hasUpperCase || !hasLowerCase || !hasNumber) {
+      toast.error("A senha deve conter pelo menos: 1 letra maiúscula, 1 letra minúscula e 1 número.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (registerData.password !== registerData.confirmPassword) {
+      toast.error("As senhas não coincidem.");
       setIsLoading(false);
       return;
     }
@@ -273,6 +327,7 @@ export default function LoginLocatarioPage() {
                           required
                         />
                       </div>
+                      <p className="text-xs text-slate-500">Ex: usuario@gmail.com, usuario@hotmail.com</p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
@@ -284,8 +339,9 @@ export default function LoginLocatarioPage() {
                             id="telefone"
                             placeholder="(11) 99999-9999"
                             value={registerData.telefone}
-                            onChange={(e) => setRegisterData({ ...registerData, telefone: e.target.value })}
+                            onChange={(e) => setRegisterData({ ...registerData, telefone: formatTelefone(e.target.value) })}
                             className="pl-10"
+                            maxLength={15}
                             required
                           />
                         </div>
@@ -351,6 +407,39 @@ export default function LoginLocatarioPage() {
                         </div>
                       </div>
                     </div>
+
+                    {/* Indicadores de validação de senha */}
+                    {registerData.password && (
+                      <div className="bg-slate-50 p-3 rounded-lg space-y-2">
+                        <p className="text-xs font-medium text-slate-600">Sua senha deve conter:</p>
+                        <div className="space-y-1 text-xs">
+                          <div className={`flex items-center gap-2 ${passwordValidation.hasMinLength ? 'text-green-600' : 'text-slate-400'}`}>
+                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${passwordValidation.hasMinLength ? 'bg-green-100' : 'bg-slate-200'}`}>
+                              {passwordValidation.hasMinLength && '✓'}
+                            </div>
+                            Mínimo 6 caracteres
+                          </div>
+                          <div className={`flex items-center gap-2 ${passwordValidation.hasUpperCase ? 'text-green-600' : 'text-slate-400'}`}>
+                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${passwordValidation.hasUpperCase ? 'bg-green-100' : 'bg-slate-200'}`}>
+                              {passwordValidation.hasUpperCase && '✓'}
+                            </div>
+                            Uma letra maiúscula (A-Z)
+                          </div>
+                          <div className={`flex items-center gap-2 ${passwordValidation.hasLowerCase ? 'text-green-600' : 'text-slate-400'}`}>
+                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${passwordValidation.hasLowerCase ? 'bg-green-100' : 'bg-slate-200'}`}>
+                              {passwordValidation.hasLowerCase && '✓'}
+                            </div>
+                            Uma letra minúscula (a-z)
+                          </div>
+                          <div className={`flex items-center gap-2 ${passwordValidation.hasNumber ? 'text-green-600' : 'text-slate-400'}`}>
+                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${passwordValidation.hasNumber ? 'bg-green-100' : 'bg-slate-200'}`}>
+                              {passwordValidation.hasNumber && '✓'}
+                            </div>
+                            Um número (0-9)
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
                     <div className="flex items-start gap-2">
                       <input type="checkbox" className="rounded mt-1" required />
