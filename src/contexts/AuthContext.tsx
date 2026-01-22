@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 
 interface User {
   id: string;
@@ -6,51 +6,103 @@ interface User {
   email: string;
   telefone?: string;
   profissao?: string;
+  password: string;
 }
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<{ success: boolean; isAdmin?: boolean }>;
+  register: (userData: Omit<User, 'id'>) => Promise<boolean>;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+// Credenciais do administrador (fixas)
+const ADMIN_CREDENTIALS = {
+  email: 'admin@genki.com.br',
+  password: 'genkiadmin2026',
+};
 
-  const login = useCallback(async (email: string, _password: string): Promise<boolean> => {
-    // Simulate API call delay
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<User | null>(() => {
+    // Recuperar usuário do sessionStorage ao carregar
+    const savedUser = sessionStorage.getItem('currentUser');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  // Salvar usuário no sessionStorage quando mudar
+  useEffect(() => {
+    if (user) {
+      sessionStorage.setItem('currentUser', JSON.stringify(user));
+    } else {
+      sessionStorage.removeItem('currentUser');
+    }
+  }, [user]);
+
+  const register = useCallback(async (userData: Omit<User, 'id'>): Promise<boolean> => {
+    // Simular delay de API
     await new Promise(resolve => setTimeout(resolve, 800));
 
-    // Demo user for testing
-    if (email.toLowerCase() === 'locatario@demo.com') {
-      setUser({
-        id: 'demo-locatario',
-        name: 'Dr. João Silva',
-        email: email,
-        telefone: '(11) 99999-9999',
-        profissao: 'Fisioterapeuta',
-      });
-      return true;
+    // Recuperar usuários registrados do localStorage
+    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+
+    // Verificar se o email já está cadastrado
+    if (registeredUsers.some((u: User) => u.email === userData.email)) {
+      return false; // Email já cadastrado
     }
 
-    // Accept any email for demo purposes
-    if (email.includes('@')) {
-      setUser({
-        id: 'user-' + Date.now(),
-        name: email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-        email: email,
-      });
-      return true;
+    // Criar novo usuário
+    const newUser: User = {
+      ...userData,
+      id: 'user-' + Date.now(),
+    };
+
+    // Salvar no localStorage
+    registeredUsers.push(newUser);
+    localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+
+    return true;
+  }, []);
+
+  const login = useCallback(async (email: string, password: string): Promise<{ success: boolean; isAdmin?: boolean }> => {
+    // Simular delay de API
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    // Verificar se é o administrador
+    if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
+      const adminUser: User = {
+        id: 'admin',
+        name: 'Administrador GENKI',
+        email: ADMIN_CREDENTIALS.email,
+        password: ADMIN_CREDENTIALS.password,
+      };
+      setUser(adminUser);
+      localStorage.setItem('adminToken', 'admin-authenticated');
+      return { success: true, isAdmin: true };
     }
 
-    return false;
+    // Recuperar usuários registrados do localStorage
+    const registeredUsers: User[] = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+
+    // Buscar usuário com email e senha exatos
+    const foundUser = registeredUsers.find(
+      (u: User) => u.email === email && u.password === password
+    );
+
+    if (foundUser) {
+      setUser(foundUser);
+      return { success: true, isAdmin: false };
+    }
+
+    return { success: false };
   }, []);
 
   const logout = useCallback(() => {
     setUser(null);
+    sessionStorage.removeItem('currentUser');
+    localStorage.removeItem('adminToken');
   }, []);
 
   return (
@@ -58,6 +110,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       user,
       isAuthenticated: !!user,
       login,
+      register,
       logout,
     }}>
       {children}

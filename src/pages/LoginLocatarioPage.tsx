@@ -11,7 +11,7 @@ import { toast } from "sonner";
 
 export default function LoginLocatarioPage() {
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, register } = useAuth();
   const navigate = useNavigate();
 
   // Login form
@@ -34,12 +34,18 @@ export default function LoginLocatarioPage() {
     setIsLoading(true);
 
     try {
-      const success = await login(loginEmail, loginPassword);
-      if (success) {
+      const result = await login(loginEmail, loginPassword);
+      if (result.success) {
         toast.success("Login realizado com sucesso!");
-        navigate("/locatario/reservas");
+        // Se for admin, redirecionar para dashboard admin
+        if (result.isAdmin) {
+          navigate("/admin/dashboard");
+        } else {
+          // Usuário normal vai para painel de reservas
+          navigate("/locatario/reservas");
+        }
       } else {
-        toast.error("Email ou senha inválidos.");
+        toast.error("Email ou senha inválidos. Verifique suas credenciais.");
       }
     } catch {
       toast.error("Erro ao realizar login. Tente novamente.");
@@ -58,10 +64,36 @@ export default function LoginLocatarioPage() {
       return;
     }
 
+    if (registerData.password.length < 6) {
+      toast.error("A senha deve ter no mínimo 6 caracteres.");
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      // Simular cadastro
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      toast.success("Cadastro realizado com sucesso! Faça login para continuar.");
+      const success = await register({
+        name: registerData.nome,
+        email: registerData.email,
+        telefone: registerData.telefone,
+        profissao: `${registerData.profissao} - ${registerData.conselho}`,
+        password: registerData.password,
+      });
+
+      if (success) {
+        toast.success("Cadastro realizado com sucesso! Faça login para continuar.");
+        // Limpar formulário
+        setRegisterData({
+          nome: "",
+          email: "",
+          telefone: "",
+          profissao: "",
+          conselho: "",
+          password: "",
+          confirmPassword: "",
+        });
+      } else {
+        toast.error("Este email já está cadastrado. Tente fazer login.");
+      }
     } catch {
       toast.error("Erro ao realizar cadastro. Tente novamente.");
     } finally {
@@ -198,12 +230,6 @@ export default function LoginLocatarioPage() {
                       {isLoading ? "Entrando..." : "Entrar"}
                     </Button>
                   </form>
-
-                  <div className="mt-6 p-4 bg-slate-100 rounded-lg">
-                    <p className="text-sm text-slate-600 mb-2">Conta demo para teste:</p>
-                    <p className="text-xs text-slate-500">Email: locatario@demo.com</p>
-                    <p className="text-xs text-slate-500">Senha: demo123</p>
-                  </div>
                 </CardContent>
               </Card>
             </TabsContent>

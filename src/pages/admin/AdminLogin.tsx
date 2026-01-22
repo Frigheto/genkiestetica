@@ -1,44 +1,48 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     
-    // Login simples (em produção, use autenticação real)
-    if (email === "admin@genki.com.br" && password === "admin123") {
-      localStorage.setItem("adminToken", "admin-authenticated");
-      toast({
-        title: "Login realizado com sucesso!",
-        description: "Redirecionando para o painel...",
-      });
-      navigate("/admin/dashboard");
-    } else {
-      toast({
-        title: "Erro no login",
-        description: "E-mail ou senha incorretos",
-        variant: "destructive",
-      });
+    try {
+      const result = await login(email, password);
+      
+      if (result.success && result.isAdmin) {
+        toast.success("Login administrativo realizado com sucesso!");
+        navigate("/admin/dashboard");
+      } else if (result.success && !result.isAdmin) {
+        toast.error("Estas credenciais não possuem permissão de administrador.");
+      } else {
+        toast.error("E-mail ou senha incorretos.");
+      }
+    } catch {
+      toast.error("Erro ao realizar login. Tente novamente.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 to-teal-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-genki-forest/10 to-genki-sage/10 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Painel Administrativo</CardTitle>
           <CardDescription className="text-center">
-            Entre com suas credenciais para acessar o gerenciador
+            Entre com suas credenciais de administrador
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -65,13 +69,14 @@ export default function AdminLogin() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">
-              Entrar
+            <Button 
+              type="submit" 
+              className="w-full bg-genki-forest hover:bg-genki-forest/90"
+              disabled={isLoading}
+            >
+              {isLoading ? "Entrando..." : "Entrar"}
             </Button>
           </form>
-          <p className="text-xs text-center text-gray-500 mt-4">
-            Credenciais padrão: admin@genki.com.br / admin123
-          </p>
         </CardContent>
       </Card>
     </div>
