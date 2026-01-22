@@ -28,6 +28,7 @@ import MinhasReservasPage from "./pages/locatario/MinhasReservasPage";
 // Área Administrativa
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminLogin from "./pages/admin/AdminLogin";
+import ClientesCadastrados from "./pages/admin/ClientesCadastrados";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,7 @@ function AppRoutes() {
       {/* Área Administrativa */}
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      <Route path="/admin/clientes" element={<ClientesCadastrados />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>

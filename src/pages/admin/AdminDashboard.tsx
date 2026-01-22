@@ -74,6 +74,17 @@ export default function AdminDashboard() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <Card className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => navigate("/admin/clientes")}>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600">Clientes Cadastrados</CardTitle>
+              <Users className="w-4 h-4 text-genki-forest" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{JSON.parse(localStorage.getItem("registeredUsers") || "[]").length}</div>
+              <p className="text-xs text-gray-500">Clique para gerenciar</p>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">Total de Reservas</CardTitle>
@@ -106,23 +117,13 @@ export default function AdminDashboard() {
               <p className="text-xs text-gray-500">Todas equipadas</p>
             </CardContent>
           </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Taxa de Ocupação</CardTitle>
-              <FileText className="w-4 h-4 text-teal-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">78%</div>
-              <p className="text-xs text-gray-500">Média semanal</p>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Tabs */}
         <Tabs defaultValue="dashboard" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+            <TabsTrigger value="clientes">Clientes</TabsTrigger>
             <TabsTrigger value="agenda">Agenda</TabsTrigger>
             <TabsTrigger value="content">Conteúdo</TabsTrigger>
             <TabsTrigger value="services">Serviços</TabsTrigger>
@@ -131,6 +132,88 @@ export default function AdminDashboard() {
 
           <TabsContent value="dashboard" className="space-y-4">
             <DashboardCharts />
+          </TabsContent>
+
+          <TabsContent value="clientes" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="w-5 h-5" />
+                  Gerenciamento de Clientes
+                </CardTitle>
+                <CardDescription>Visualize e gerencie todos os clientes cadastrados no sistema</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between p-6 bg-gradient-to-r from-genki-forest/10 to-genki-sage/10 rounded-lg border border-genki-forest/20">
+                  <div>
+                    <h3 className="text-lg font-semibold mb-1">Total de Clientes Cadastrados</h3>
+                    <p className="text-3xl font-bold text-genki-forest">
+                      {JSON.parse(localStorage.getItem("registeredUsers") || "[]").length}
+                    </p>
+                    <p className="text-sm text-gray-600 mt-2">
+                      Usuários registrados no site com acesso completo
+                    </p>
+                  </div>
+                  <Button 
+                    size="lg" 
+                    className="bg-genki-forest hover:bg-genki-forest/90"
+                    onClick={() => navigate("/admin/clientes")}
+                  >
+                    Ver Lista Completa
+                  </Button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="p-4 bg-white border rounded-lg">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                        <Users className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <h4 className="font-semibold">Informações Disponíveis</h4>
+                    </div>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li>• Nome completo</li>
+                      <li>• Email</li>
+                      <li>• Telefone</li>
+                      <li>• Profissão</li>
+                      <li>• Senha</li>
+                    </ul>
+                  </div>
+
+                  <div className="p-4 bg-white border rounded-lg">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                        <Settings className="w-5 h-5 text-green-600" />
+                      </div>
+                      <h4 className="font-semibold">Funcionalidades</h4>
+                    </div>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li>• Busca por cliente</li>
+                      <li>• Visualização detalhada</li>
+                      <li>• Exportar dados</li>
+                      <li>• Excluir usuários</li>
+                      <li>• Estatísticas</li>
+                    </ul>
+                  </div>
+
+                  <div className="p-4 bg-white border rounded-lg">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                        <BarChart3 className="w-5 h-5 text-purple-600" />
+                      </div>
+                      <h4 className="font-semibold">Dados em Tempo Real</h4>
+                    </div>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li>• Novos cadastros</li>
+                      <li>• Data de registro</li>
+                      <li>• Últimos 7 dias</li>
+                      <li>• Total mensal</li>
+                      <li>• Filtros avançados</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="agenda" className="space-y-4">
