@@ -1,0 +1,244 @@
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Sparkles, ArrowRight, CheckCircle } from "lucide-react";
+
+const tratamentos = [
+  {
+    nome: "Botox",
+    descricao: "Tratamento para suavizar rugas e linhas de expressão, proporcionando uma aparência mais jovem e descansada.",
+    beneficios: ["Reduz rugas dinâmicas", "Previne novas linhas", "Resultados naturais", "Procedimento rápido"],
+    imagem: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=300&fit=crop",
+  },
+  {
+    nome: "Preenchimento Facial",
+    descricao: "Restaure volume e contorno facial com ácido hialurônico de alta qualidade para resultados naturais e duradouros.",
+    beneficios: ["Restaura volume perdido", "Define contornos", "Hidrata a pele", "Efeito imediato"],
+    imagem: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop",
+  },
+  {
+    nome: "Harmonização Facial",
+    descricao: "Conjunto de procedimentos que equilibram os traços faciais, realçando sua beleza natural de forma harmoniosa.",
+    beneficios: ["Equilíbrio facial", "Traços definidos", "Aparência natural", "Autoestima elevada"],
+    imagem: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&h=300&fit=crop",
+  },
+  {
+    nome: "Tratamentos de Emagrecimento",
+    descricao: "Protocolos avançados para redução de medidas e gordura localizada com tecnologia de ponta.",
+    beneficios: ["Redução de medidas", "Elimina gordura localizada", "Resultados visíveis", "Não invasivo"],
+    imagem: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop",
+  },
+  {
+    nome: "Skincare Avançado",
+    descricao: "Tratamentos faciais personalizados para rejuvenescimento, hidratação e tratamento de manchas.",
+    beneficios: ["Pele renovada", "Reduz manchas", "Estimula colágeno", "Hidratação profunda"],
+    imagem: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&h=300&fit=crop",
+  },
+  {
+    nome: "Limpeza de Pele",
+    descricao: "Procedimento essencial para manter a pele saudável, removendo impurezas e controlando a oleosidade.",
+    beneficios: ["Remove cravos", "Desobstrui poros", "Pele mais limpa", "Prepara para outros tratamentos"],
+    imagem: "https://images.unsplash.com/photo-1552693673-1bf958298935?w=400&h=300&fit=crop",
+  },
+];
+
+export default function EsteticaPage() {
+  return (
+    <div className="min-h-screen pt-20">
+      {/* Hero Section */}
+      <section className="relative py-24">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1920&h=800&fit=crop')`,
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-slate-900/70" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
+                <Sparkles className="w-7 h-7 text-white" />
+              </div>
+              <span className="text-primary font-medium">Nossos Serviços</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+              Estética
+            </h1>
+            <p className="text-white/70 text-lg">
+              Tratamentos estéticos de alta qualidade para realçar sua beleza natural.
+              Utilizamos as mais avançadas técnicas e tecnologias do mercado para
+              proporcionar resultados naturais e duradouros.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Vídeo Explicativo do Serviço */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
+                Conheça Nossos Tratamentos Estéticos
+              </h2>
+              <p className="text-slate-600 text-lg">
+                Assista ao vídeo e descubra como nossos tratamentos podem transformar sua beleza natural
+              </p>
+            </div>
+
+            {/* Vídeo Explicativo */}
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-slate-100">
+              <video
+                className="w-full h-full object-cover"
+                controls
+                poster="/videos/estetica/explicativo-thumbnail.jpg"
+              >
+                <source src="/videos/estetica/explicativo.mp4" type="video/mp4" />
+                <source src="/videos/estetica/explicativo.webm" type="video/webm" />
+                Seu navegador não suporta vídeos HTML5.
+              </video>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-sm text-slate-500">
+                Coloque o vídeo explicativo em: /public/videos/estetica/explicativo.mp4
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Treatments Grid */}
+      <section className="py-24 bg-slate-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
+              Nossos Tratamentos
+            </h2>
+            <p className="text-slate-600">
+              Conheça os procedimentos estéticos que oferecemos. Todos realizados
+              por profissionais especializados em ambiente seguro e acolhedor.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {tratamentos.map((tratamento) => (
+              <Card key={tratamento.nome} className="border-0 shadow-lg overflow-hidden group">
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={tratamento.imagem}
+                    alt={tratamento.nome}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                  <h3 className="absolute bottom-4 left-4 text-xl font-semibold text-white">
+                    {tratamento.nome}
+                  </h3>
+                </div>
+                <CardContent className="p-6">
+                  <p className="text-slate-600 mb-4">{tratamento.descricao}</p>
+                  <div className="space-y-2">
+                    {tratamento.beneficios.map((beneficio) => (
+                      <div key={beneficio} className="flex items-center gap-2 text-sm">
+                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                        <span className="text-slate-700">{beneficio}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Vídeos dos Trabalhos Realizados */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
+              Resultados Reais
+            </h2>
+            <p className="text-slate-600">
+              Confira os resultados dos tratamentos estéticos realizados na GENKI.
+              Veja depoimentos e transformações de nossos clientes.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Vídeo 1 */}
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
+              <video
+                className="w-full h-full object-cover"
+                controls
+                poster="/videos/estetica/thumbnail1.jpg"
+              >
+                <source src="/videos/estetica/video1.mp4" type="video/mp4" />
+                <source src="/videos/estetica/video1.webm" type="video/webm" />
+                Seu navegador não suporta vídeos HTML5.
+              </video>
+            </div>
+
+            {/* Vídeo 2 */}
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
+              <video
+                className="w-full h-full object-cover"
+                controls
+                poster="/videos/estetica/thumbnail2.jpg"
+              >
+                <source src="/videos/estetica/video2.mp4" type="video/mp4" />
+                <source src="/videos/estetica/video2.webm" type="video/webm" />
+                Seu navegador não suporta vídeos HTML5.
+              </video>
+            </div>
+
+            {/* Vídeo 3 */}
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
+              <video
+                className="w-full h-full object-cover"
+                controls
+                poster="/videos/estetica/thumbnail3.jpg"
+              >
+                <source src="/videos/estetica/video3.mp4" type="video/mp4" />
+                <source src="/videos/estetica/video3.webm" type="video/webm" />
+                Seu navegador não suporta vídeos HTML5.
+              </video>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-sm text-slate-500">
+              Coloque seus vídeos na pasta: /public/videos/estetica/
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-gradient-to-br from-pink-500 to-rose-500">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
+            Agende sua Avaliação
+          </h2>
+          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
+            Quer saber qual tratamento é ideal para você? Agende uma avaliação
+            gratuita com nossos especialistas e descubra como podemos ajudá-lo.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Button asChild size="lg" className="bg-white text-rose-500 hover:bg-white/90">
+              <a href="https://wa.me/5555991911033" target="_blank" rel="noopener noreferrer">
+                Agendar Avaliação
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+              <Link to="/servicos">Ver Outros Serviços</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
