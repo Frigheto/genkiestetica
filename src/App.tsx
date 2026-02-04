@@ -20,6 +20,7 @@ import MassoterapiaPage from "./pages/MassoterapiaPage";
 import PilatesPage from "./pages/PilatesPage";
 import AluguelSalasPage from "./pages/AluguelSalasPage";
 import SalaDetalhesPage from "./pages/SalaDetalhesPage";
+import LoginLocatarioPage from "./pages/LoginLocatarioPage";
 import NotFound from "./pages/NotFound";
 
 // Área Administrativa
@@ -50,6 +51,9 @@ function AppRoutes() {
         <Route path="/aluguel-salas" element={<AluguelSalasPage />} />
         <Route path="/aluguel-salas/:salaId" element={<SalaDetalhesPage />} />
       </Route>
+
+      {/* Login de Locatário */}
+      <Route path="/login" element={<LoginLocatarioPage />} />
 
       {/* Área Administrativa */}
       <Route path="/admin/login" element={<AdminLogin />} />
