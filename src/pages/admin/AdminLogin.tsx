@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAdmin } from "@/contexts/AdminContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,7 +11,7 @@ export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { adminLogin } = useAdmin();
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -19,15 +19,13 @@ export default function AdminLogin() {
     setIsLoading(true);
     
     try {
-      const result = await login(email, password);
+      const result = await adminLogin(email, password);
       
-      if (result.success && result.isAdmin) {
-        toast.success("Login administrativo realizado com sucesso!");
+      if (result.success) {
+        toast.success(result.message);
         navigate("/admin/dashboard");
-      } else if (result.success && !result.isAdmin) {
-        toast.error("Estas credenciais não possuem permissão de administrador.");
       } else {
-        toast.error("E-mail ou senha incorretos.");
+        toast.error(result.message);
       }
     } catch {
       toast.error("Erro ao realizar login. Tente novamente.");
@@ -82,3 +80,4 @@ export default function AdminLogin() {
     </div>
   );
 }
+

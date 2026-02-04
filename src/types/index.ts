@@ -160,3 +160,34 @@ export interface SymptomAnalysis {
   recommendations: string[];
   shouldSeekImmediate: boolean;
 }
+
+// Sala de Aluguel
+export interface Sala {
+  id: string;
+  nome: string;
+  descricao: string;
+  area: string;
+  equipamentos: string[];
+  preco: number; // preço por hora
+  ativo: boolean;
+  fotos: Foto[]; // exatamente 5 fotos
+  video?: Video; // 1 vídeo opcional
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Foto da sala
+export interface Foto {
+  id: string;
+  url: string;
+  titulo?: string;
+  ordem: number; // 1-5
+}
+
+// Vídeo da sala
+export interface Video {
+  id: string;
+  url: string;
+  titulo?: string;
+  thumbnail?: string;
+}
