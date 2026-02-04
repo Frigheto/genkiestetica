@@ -56,21 +56,6 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          {/* Card Estatísticas */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-lg">Estatísticas</CardTitle>
-                <BarChart3 className="text-green-600" size={24} />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-600">
-                Visualize métricas do site
-              </p>
-            </CardContent>
-          </Card>
-
           {/* Card Configurações */}
           <Card>
             <CardHeader>
@@ -102,14 +87,6 @@ export default function AdminDashboard() {
               >
                 <Building2 className="mr-2" size={18} />
                 Gerenciar Salas e Mídias
-              </Button>
-              <Button 
-                onClick={() => navigate("/admin/relatorios")}
-                className="w-full justify-start" 
-                variant="outline"
-              >
-                <BarChart3 className="mr-2" size={18} />
-                Ver Relatórios
               </Button>
               <Button 
                 onClick={() => navigate("/admin/configuracoes")}
