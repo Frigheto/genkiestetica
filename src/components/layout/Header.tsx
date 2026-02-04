@@ -25,6 +25,13 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
 
   const isActive = (path: string) => location.pathname === path;
   const isServicosActive = location.pathname.startsWith("/servicos");
+  const isHomePage = location.pathname === "/";
+
+  // Define as cores baseado na página
+  const textColor = isHomePage ? "text-white" : "text-genki-forest";
+  const hoverColor = isHomePage ? "hover:text-emerald-400" : "hover:text-genki-sage";
+  const activeColor = isHomePage ? "text-emerald-400" : "text-genki-forest";
+  const logoColor = isHomePage ? "text-white" : "text-genki-forest";
 
   // Fecha o dropdown ao clicar fora
   useEffect(() => {
@@ -44,12 +51,12 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
   }, [servicosOpen]);
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 bg-transparent">
+    <header className="absolute top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-md">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl font-serif font-bold text-white tracking-tight">
+            <span className={cn("text-2xl font-serif font-bold tracking-tight", logoColor)}>
               GENKI
             </span>
           </Link>
@@ -61,8 +68,8 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
               className={cn(
                 "text-sm font-medium uppercase tracking-wide transition-colors",
                 isActive("/")
-                  ? "text-emerald-400"
-                  : "text-white hover:text-emerald-400"
+                  ? activeColor
+                  : `${textColor} ${hoverColor}`
               )}
             >
               HOME
@@ -73,8 +80,8 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
               className={cn(
                 "text-sm font-medium uppercase tracking-wide transition-colors",
                 isActive("/sobre")
-                  ? "text-emerald-400"
-                  : "text-white hover:text-emerald-400"
+                  ? activeColor
+                  : `${textColor} ${hoverColor}`
               )}
             >
               SOBRE
@@ -90,8 +97,8 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
                 className={cn(
                   "flex items-center gap-1 text-sm font-medium uppercase tracking-wide transition-colors",
                   isServicosActive
-                    ? "text-emerald-400"
-                    : "text-white hover:text-emerald-400"
+                    ? activeColor
+                    : `${textColor} ${hoverColor}`
                 )}
               >
                 SERVIÇOS
@@ -102,13 +109,13 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
               </button>
               
               {servicosOpen && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-slate-900/95 backdrop-blur-sm border border-emerald-500/20 rounded-lg shadow-2xl py-2">
+                <div className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-sm border border-genki-forest/20 rounded-lg shadow-2xl py-2">
                   {servicos.map((servico) => (
                     <Link
                       key={servico.href}
                       to={servico.href}
                       onClick={() => setServicosOpen(false)}
-                      className="block px-4 py-2.5 text-sm text-white hover:bg-emerald-600/20 hover:text-emerald-400 transition-colors"
+                      className="block px-4 py-2.5 text-sm text-genki-forest hover:bg-genki-forest/10 hover:text-genki-sage transition-colors"
                     >
                       {servico.name}
                     </Link>
@@ -122,8 +129,8 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
               className={cn(
                 "text-sm font-medium uppercase tracking-wide transition-colors whitespace-nowrap",
                 isActive("/aluguel-salas")
-                  ? "text-emerald-400"
-                  : "text-white hover:text-emerald-400"
+                  ? activeColor
+                  : `${textColor} ${hoverColor}`
               )}
             >
               ALUGUEL DE SALAS
@@ -131,7 +138,10 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
 
             <Link
               to="/login"
-              className="text-sm font-medium uppercase tracking-wide text-white hover:text-emerald-400 transition-colors"
+              className={cn(
+                "text-sm font-medium uppercase tracking-wide transition-colors",
+                `${textColor} ${hoverColor}`
+              )}
             >
               LOGIN
             </Link>
@@ -139,7 +149,7 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-white p-2"
+            className={cn("lg:hidden p-2", textColor)}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -148,14 +158,14 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-slate-900/98 backdrop-blur-md py-4">
+          <div className="lg:hidden bg-white/95 backdrop-blur-md py-4 border-t border-genki-forest/10">
             <nav className="flex flex-col space-y-1">
               <Link
                 to="/"
                 onClick={() => setMobileMenuOpen(false)}
                 className={cn(
                   "px-6 py-3 text-sm font-medium uppercase tracking-wide transition-colors",
-                  isActive("/") ? "text-emerald-400 bg-emerald-600/10" : "text-white hover:text-emerald-400"
+                  isActive("/") ? "text-genki-forest bg-genki-forest/10" : "text-slate-700 hover:text-genki-forest"
                 )}
               >
                 HOME
@@ -165,20 +175,20 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
                 onClick={() => setMobileMenuOpen(false)}
                 className={cn(
                   "px-6 py-3 text-sm font-medium uppercase tracking-wide transition-colors",
-                  isActive("/sobre") ? "text-emerald-400 bg-emerald-600/10" : "text-white hover:text-emerald-400"
+                  isActive("/sobre") ? "text-genki-forest bg-genki-forest/10" : "text-slate-700 hover:text-genki-forest"
                 )}
               >
                 SOBRE
               </Link>
               <div className="px-6 py-2">
-                <span className="text-xs text-emerald-400 font-semibold uppercase tracking-wider">Serviços</span>
+                <span className="text-xs text-genki-forest font-semibold uppercase tracking-wider">Serviços</span>
               </div>
               {servicos.map((servico) => (
                 <Link
                   key={servico.href}
                   to={servico.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-8 py-2 text-sm text-slate-300 hover:text-emerald-400"
+                  className="px-8 py-2 text-sm text-slate-600 hover:text-genki-forest"
                 >
                   {servico.name}
                 </Link>
@@ -188,7 +198,7 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
                 onClick={() => setMobileMenuOpen(false)}
                 className={cn(
                   "px-6 py-3 text-sm font-medium uppercase tracking-wide transition-colors",
-                  isActive("/aluguel-salas") ? "text-emerald-400 bg-emerald-600/10" : "text-white hover:text-emerald-400"
+                  isActive("/aluguel-salas") ? "text-genki-forest bg-genki-forest/10" : "text-slate-700 hover:text-genki-forest"
                 )}
               >
                 ALUGUEL DE SALAS
@@ -196,7 +206,7 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
               <Link
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-6 py-3 text-sm font-medium uppercase tracking-wide text-white hover:text-emerald-400"
+                className="px-6 py-3 text-sm font-medium uppercase tracking-wide text-slate-700 hover:text-genki-forest"
               >
                 LOGIN
               </Link>
