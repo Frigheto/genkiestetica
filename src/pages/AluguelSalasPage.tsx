@@ -97,8 +97,7 @@ export default function AluguelSalasPage() {
               <Button
                 onClick={() => window.scrollTo({ top: document.getElementById("salas")?.offsetTop, behavior: "smooth" })}
                 size="lg"
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10"
+                className="bg-white text-genki-forest hover:bg-white/90 font-semibold"
               >
                 Ver Salas
                 <ArrowRight className="ml-2 w-5 h-5" />
