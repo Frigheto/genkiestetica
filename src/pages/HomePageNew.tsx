@@ -475,8 +475,7 @@ export default function HomePageNew() {
               </Button>
               <Button 
                 size="lg" 
-                variant="outline" 
-                className="border-2 border-white text-white hover:bg-white hover:text-emerald-600 px-8 py-6 text-lg rounded-full"
+                className="bg-white/20 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-genki-forest px-8 py-6 text-lg rounded-full font-semibold shadow-lg"
                 asChild
               >
                 <Link to="/login">Área do Locatário</Link>
