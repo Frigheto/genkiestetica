@@ -27,6 +27,9 @@ import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminSalasPage from "./pages/admin/AdminSalasPage";
+import AdminRelatorios from "./pages/admin/AdminRelatorios";
+import AdminConfiguracoes from "./pages/admin/AdminConfiguracoes";
+import ClientesCadastrados from "./pages/admin/ClientesCadastrados";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +73,30 @@ function AppRoutes() {
         element={
           <AdminProtectedRoute>
             <AdminSalasPage />
+          </AdminProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/relatorios" 
+        element={
+          <AdminProtectedRoute>
+            <AdminRelatorios />
+          </AdminProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/configuracoes" 
+        element={
+          <AdminProtectedRoute>
+            <AdminConfiguracoes />
+          </AdminProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/clientes" 
+        element={
+          <AdminProtectedRoute>
+            <ClientesCadastrados />
           </AdminProtectedRoute>
         } 
       />

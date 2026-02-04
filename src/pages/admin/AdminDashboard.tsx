@@ -103,11 +103,19 @@ export default function AdminDashboard() {
                 <Building2 className="mr-2" size={18} />
                 Gerenciar Salas e Mídias
               </Button>
-              <Button className="w-full justify-start" variant="outline">
+              <Button 
+                onClick={() => navigate("/admin/relatorios")}
+                className="w-full justify-start" 
+                variant="outline"
+              >
                 <BarChart3 className="mr-2" size={18} />
                 Ver Relatórios
               </Button>
-              <Button className="w-full justify-start" variant="outline">
+              <Button 
+                onClick={() => navigate("/admin/configuracoes")}
+                className="w-full justify-start" 
+                variant="outline"
+              >
                 <Settings className="mr-2" size={18} />
                 Configurações do Site
               </Button>
