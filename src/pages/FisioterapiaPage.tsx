@@ -9,36 +9,42 @@ const tratamentos = [
     descricao: "Tratamento de lesões e disfunções do sistema musculoesquelético, incluindo coluna, articulações e músculos.",
     beneficios: ["Alívio de dores", "Recuperação de lesões", "Melhora da mobilidade", "Prevenção de recidivas"],
     imagem: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop",
+    link: "/fisioterapia/ortopedica",
   },
   {
     nome: "Fisioterapia Neurológica",
     descricao: "Reabilitação de pacientes com condições neurológicas, promovendo recuperação funcional e qualidade de vida.",
     beneficios: ["Recuperação motora", "Melhora do equilíbrio", "Independência funcional", "Qualidade de vida"],
     imagem: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=300&fit=crop",
+    link: "/fisioterapia/neurologica",
   },
   {
     nome: "RPG - Reeducação Postural Global",
     descricao: "Método que trabalha as cadeias musculares para correção postural e tratamento de dores crônicas.",
     beneficios: ["Correção postural", "Alívio de tensões", "Flexibilidade", "Consciência corporal"],
     imagem: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+    link: "/fisioterapia/rpg",
   },
   {
     nome: "Pilates Clínico",
     descricao: "Pilates com foco terapêutico, indicado para reabilitação e tratamento de patologias específicas.",
     beneficios: ["Fortalecimento", "Estabilização", "Reabilitação segura", "Resultados duradouros"],
     imagem: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=300&fit=crop",
+    link: "/fisioterapia/pilates-clinico",
   },
   {
     nome: "Eletroterapia",
     descricao: "Uso de correntes elétricas para tratamento de dores, inflamações e fortalecimento muscular.",
     beneficios: ["Controle da dor", "Reduz inflamação", "Acelera cicatrização", "Fortalece músculos"],
     imagem: "https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=400&h=300&fit=crop",
+    link: "/fisioterapia/eletroterapia",
   },
   {
     nome: "Fisioterapia Respiratória",
     descricao: "Tratamento de disfunções respiratórias, melhorando a capacidade pulmonar e a qualidade de vida.",
     beneficios: ["Melhora respiração", "Desobstrui vias aéreas", "Aumenta capacidade pulmonar", "Reabilitação pós-covid"],
     imagem: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&h=300&fit=crop",
+    link: "/fisioterapia/respiratoria",
   },
 ];
 
@@ -125,30 +131,32 @@ export default function FisioterapiaPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {tratamentos.map((tratamento) => (
-              <Card key={tratamento.nome} className="border-0 shadow-lg overflow-hidden group">
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={tratamento.imagem}
-                    alt={tratamento.nome}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
-                  <h3 className="absolute bottom-4 left-4 text-xl font-semibold text-white">
-                    {tratamento.nome}
-                  </h3>
-                </div>
-                <CardContent className="p-6">
-                  <p className="text-slate-600 mb-4">{tratamento.descricao}</p>
-                  <div className="space-y-2">
-                    {tratamento.beneficios.map((beneficio) => (
-                      <div key={beneficio} className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                        <span className="text-slate-700">{beneficio}</span>
-                      </div>
-                    ))}
+              <Link key={tratamento.nome} to={tratamento.link}>
+                <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-xl transition-shadow cursor-pointer">
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={tratamento.imagem}
+                      alt={tratamento.nome}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                    <h3 className="absolute bottom-4 left-4 text-xl font-semibold text-white">
+                      {tratamento.nome}
+                    </h3>
                   </div>
-                </CardContent>
-              </Card>
+                  <CardContent className="p-6">
+                    <p className="text-slate-600 mb-4">{tratamento.descricao}</p>
+                    <div className="space-y-2">
+                      {tratamento.beneficios.map((beneficio) => (
+                        <div key={beneficio} className="flex items-center gap-2 text-sm">
+                          <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                          <span className="text-slate-700">{beneficio}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>

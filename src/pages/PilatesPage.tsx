@@ -9,12 +9,14 @@ const modalidades = [
     descricao: "Exercícios adaptados para gestantes, ajudando no preparo para o parto e no bem-estar durante a gravidez.",
     beneficios: ["Preparo para o parto", "Alivia desconfortos", "Fortalece assoalho pélvico", "Seguro para bebê"],
     imagem: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop",
+    link: "/pilates/gestantes",
   },
   {
     nome: "Pilates com Aparelhos",
     descricao: "Exercícios realizados em equipamentos específicos como Reformer, Cadillac e Chair para trabalho mais intenso e personalizado.",
     beneficios: ["Maior resistência", "Variedade de exercícios", "Trabalho específico", "Resultados rápidos"],
     imagem: "https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=400&h=300&fit=crop",
+    link: "/pilates/aparelhos",
   },
 ];
 
@@ -138,30 +140,32 @@ export default function PilatesPage() {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {modalidades.map((modalidade) => (
-              <Card key={modalidade.nome} className="border-0 shadow-lg overflow-hidden group">
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={modalidade.imagem}
-                    alt={modalidade.nome}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
-                  <h3 className="absolute bottom-4 left-4 text-xl font-semibold text-white">
-                    {modalidade.nome}
-                  </h3>
-                </div>
-                <CardContent className="p-6">
-                  <p className="text-slate-600 mb-4">{modalidade.descricao}</p>
-                  <div className="space-y-2">
-                    {modalidade.beneficios.map((beneficio) => (
-                      <div key={beneficio} className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                        <span className="text-slate-700">{beneficio}</span>
-                      </div>
-                    ))}
+              <Link key={modalidade.nome} to={modalidade.link}>
+                <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-xl transition-shadow cursor-pointer">
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={modalidade.imagem}
+                      alt={modalidade.nome}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                    <h3 className="absolute bottom-4 left-4 text-xl font-semibold text-white">
+                      {modalidade.nome}
+                    </h3>
                   </div>
-                </CardContent>
-              </Card>
+                  <CardContent className="p-6">
+                    <p className="text-slate-600 mb-4">{modalidade.descricao}</p>
+                    <div className="space-y-2">
+                      {modalidade.beneficios.map((beneficio) => (
+                        <div key={beneficio} className="flex items-center gap-2 text-sm">
+                          <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                          <span className="text-slate-700">{beneficio}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>

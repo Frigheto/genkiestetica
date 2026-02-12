@@ -9,36 +9,42 @@ const tratamentos = [
     descricao: "Técnicas suaves para promover relaxamento profundo, alívio do estresse e bem-estar geral.",
     beneficios: ["Reduz estresse", "Promove relaxamento", "Melhora o sono", "Alívio de tensões"],
     imagem: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=300&fit=crop",
+    link: "/massoterapia/relaxante",
   },
   {
     nome: "Massagem Desportiva",
     descricao: "Ideal para atletas e praticantes de atividade física, ajudando na recuperação muscular e prevenção de lesões.",
     beneficios: ["Acelera recuperação", "Previne lesões", "Melhora performance", "Reduz fadiga muscular"],
     imagem: "https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=400&h=300&fit=crop",
+    link: "/massoterapia/desportiva",
   },
   {
     nome: "Drenagem Linfática",
     descricao: "Técnica que estimula o sistema linfático, reduzindo inchaços e melhorando a circulação.",
     beneficios: ["Reduz inchaços", "Elimina toxinas", "Melhora circulação", "Combate celulite"],
     imagem: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&h=300&fit=crop",
+    link: "/massoterapia/drenagem-linfatica",
   },
   {
     nome: "Massagem Modeladora",
     descricao: "Técnica intensa que ajuda a modelar o corpo, reduzindo gordura localizada e melhorando o contorno corporal.",
     beneficios: ["Modela o corpo", "Reduz medidas", "Combate celulite", "Tonifica a pele"],
     imagem: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400&h=300&fit=crop",
+    link: "/massoterapia/modeladora",
   },
   {
     nome: "Quick Massage",
     descricao: "Sessão rápida focada em pontos de tensão, ideal para o dia a dia corrido.",
     beneficios: ["Sessão rápida", "Alívio imediato", "Praticidade", "Revitaliza"],
     imagem: "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=400&h=300&fit=crop",
+    link: "/massoterapia/quick-massage",
   },
   {
     nome: "Massagem com Pedras Quentes",
     descricao: "Combina massagem com calor das pedras vulcânicas para relaxamento profundo e alívio de dores.",
     beneficios: ["Relaxamento profundo", "Alívio de dores", "Melhora circulação", "Experiência única"],
     imagem: "https://images.unsplash.com/photo-1591343395082-e120087004b4?w=400&h=300&fit=crop",
+    link: "/massoterapia/pedras-quentes",
   },
 ];
 
@@ -125,30 +131,32 @@ export default function MassoterapiaPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {tratamentos.map((tratamento) => (
-              <Card key={tratamento.nome} className="border-0 shadow-lg overflow-hidden group">
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={tratamento.imagem}
-                    alt={tratamento.nome}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
-                  <h3 className="absolute bottom-4 left-4 text-xl font-semibold text-white">
-                    {tratamento.nome}
-                  </h3>
-                </div>
-                <CardContent className="p-6">
-                  <p className="text-slate-600 mb-4">{tratamento.descricao}</p>
-                  <div className="space-y-2">
-                    {tratamento.beneficios.map((beneficio) => (
-                      <div key={beneficio} className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                        <span className="text-slate-700">{beneficio}</span>
-                      </div>
-                    ))}
+              <Link key={tratamento.nome} to={tratamento.link}>
+                <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-xl transition-shadow cursor-pointer">
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={tratamento.imagem}
+                      alt={tratamento.nome}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                    <h3 className="absolute bottom-4 left-4 text-xl font-semibold text-white">
+                      {tratamento.nome}
+                    </h3>
                   </div>
-                </CardContent>
-              </Card>
+                  <CardContent className="p-6">
+                    <p className="text-slate-600 mb-4">{tratamento.descricao}</p>
+                    <div className="space-y-2">
+                      {tratamento.beneficios.map((beneficio) => (
+                        <div key={beneficio} className="flex items-center gap-2 text-sm">
+                          <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                          <span className="text-slate-700">{beneficio}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>

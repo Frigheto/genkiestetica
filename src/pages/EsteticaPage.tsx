@@ -10,6 +10,7 @@ const tratamentos = [
     procedimentos: "Toxina botulínica e fios de PDO",
     beneficios: ["Reduz rugas dinâmicas", "Previne novas linhas", "Resultados naturais", "Procedimento rápido"],
     imagem: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=300&fit=crop",
+    link: "/estetica/rugas-linhas",
   },
   {
     nome: "Rejuvenescimento e firmeza",
@@ -17,6 +18,7 @@ const tratamentos = [
     procedimentos: "Bioestimuladores e Profhilo",
     beneficios: ["Estimula colágeno natural", "Melhora firmeza", "Hidratação profunda", "Resultados duradouros"],
     imagem: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop",
+    link: "/estetica/rejuvenescimento",
   },
   {
     nome: "Manchas",
@@ -24,6 +26,7 @@ const tratamentos = [
     procedimentos: "Microagulhamento",
     beneficios: ["Reduz manchas escuras", "Uniformiza o tom", "Estimula renovação celular", "Pele mais luminosa"],
     imagem: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&h=300&fit=crop",
+    link: "/estetica/manchas",
   },
   {
     nome: "Flacidez facial",
@@ -31,6 +34,7 @@ const tratamentos = [
     procedimentos: "Bioestimuladores e Visage",
     beneficios: ["Redefine contorno facial", "Aumenta firmeza", "Efeito lifting", "Aparência rejuvenescida"],
     imagem: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&h=300&fit=crop",
+    link: "/estetica/flacidez-facial",
   },
   {
     nome: "Flacidez corporal",
@@ -38,6 +42,7 @@ const tratamentos = [
     procedimentos: "Bioestimulador e radiofrequência",
     beneficios: ["Reduz flacidez", "Melhora textura da pele", "Resultados progressivos", "Não invasivo"],
     imagem: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop",
+    link: "/estetica/flacidez-corporal",
   },
   {
     nome: "Gordura localizada",
@@ -45,6 +50,7 @@ const tratamentos = [
     procedimentos: "Criolipólise e enzimas",
     beneficios: ["Elimina gordura localizada", "Redução de medidas", "Resultados visíveis", "Sem cirurgia"],
     imagem: "https://images.unsplash.com/photo-1552693673-1bf958298935?w=400&h=300&fit=crop",
+    link: "/estetica/gordura-localizada",
   },
 ];
 
@@ -131,37 +137,39 @@ export default function EsteticaPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {tratamentos.map((tratamento) => (
-              <Card key={tratamento.nome} className="border-0 shadow-lg overflow-hidden group">
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={tratamento.imagem}
-                    alt={tratamento.nome}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
-                  <h3 className="absolute bottom-4 left-4 text-xl font-semibold text-white">
-                    {tratamento.nome}
-                  </h3>
-                </div>
-                <CardContent className="p-6">
-                  <p className="text-slate-600 mb-4">{tratamento.descricao}</p>
-                  {"procedimentos" in tratamento && (
-                    <div className="mb-4 p-3 bg-primary/5 rounded-lg">
-                      <p className="text-sm font-medium text-primary">
-                        {tratamento.procedimentos}
-                      </p>
-                    </div>
-                  )}
-                  <div className="space-y-2">
-                    {tratamento.beneficios.map((beneficio) => (
-                      <div key={beneficio} className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                        <span className="text-slate-700">{beneficio}</span>
-                      </div>
-                    ))}
+              <Link key={tratamento.nome} to={tratamento.link}>
+                <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-xl transition-shadow cursor-pointer">
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={tratamento.imagem}
+                      alt={tratamento.nome}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                    <h3 className="absolute bottom-4 left-4 text-xl font-semibold text-white">
+                      {tratamento.nome}
+                    </h3>
                   </div>
-                </CardContent>
-              </Card>
+                  <CardContent className="p-6">
+                    <p className="text-slate-600 mb-4">{tratamento.descricao}</p>
+                    {"procedimentos" in tratamento && (
+                      <div className="mb-4 p-3 bg-primary/5 rounded-lg">
+                        <p className="text-sm font-medium text-primary">
+                          {tratamento.procedimentos}
+                        </p>
+                      </div>
+                    )}
+                    <div className="space-y-2">
+                      {tratamento.beneficios.map((beneficio) => (
+                        <div key={beneficio} className="flex items-center gap-2 text-sm">
+                          <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                          <span className="text-slate-700">{beneficio}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
