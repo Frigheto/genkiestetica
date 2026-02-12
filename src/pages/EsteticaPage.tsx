@@ -5,39 +5,45 @@ import { Sparkles, ArrowRight, CheckCircle } from "lucide-react";
 
 const tratamentos = [
   {
-    nome: "Botox",
+    nome: "Rugas e linhas de expressão",
     descricao: "Tratamento para suavizar rugas e linhas de expressão, proporcionando uma aparência mais jovem e descansada.",
+    procedimentos: "Toxina botulínica e fios de PDO",
     beneficios: ["Reduz rugas dinâmicas", "Previne novas linhas", "Resultados naturais", "Procedimento rápido"],
     imagem: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=300&fit=crop",
   },
   {
-    nome: "Preenchimento Facial",
-    descricao: "Restaure volume e contorno facial com ácido hialurônico de alta qualidade para resultados naturais e duradouros.",
-    beneficios: ["Restaura volume perdido", "Define contornos", "Hidrata a pele", "Efeito imediato"],
+    nome: "Rejuvenescimento e firmeza",
+    descricao: "Tratamentos que estimulam a produção de colágeno para uma pele mais firme, jovem e revitalizada.",
+    procedimentos: "Bioestimuladores e Profhilo",
+    beneficios: ["Estimula colágeno natural", "Melhora firmeza", "Hidratação profunda", "Resultados duradouros"],
     imagem: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop",
   },
   {
-    nome: "Harmonização Facial",
-    descricao: "Conjunto de procedimentos que equilibram os traços faciais, realçando sua beleza natural de forma harmoniosa.",
-    beneficios: ["Equilíbrio facial", "Traços definidos", "Aparência natural", "Autoestima elevada"],
-    imagem: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&h=300&fit=crop",
-  },
-  {
-    nome: "Tratamentos de Emagrecimento",
-    descricao: "Protocolos avançados para redução de medidas e gordura localizada com tecnologia de ponta.",
-    beneficios: ["Redução de medidas", "Elimina gordura localizada", "Resultados visíveis", "Não invasivo"],
-    imagem: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop",
-  },
-  {
-    nome: "Skincare Avançado",
-    descricao: "Tratamentos faciais personalizados para rejuvenescimento, hidratação e tratamento de manchas.",
-    beneficios: ["Pele renovada", "Reduz manchas", "Estimula colágeno", "Hidratação profunda"],
+    nome: "Manchas",
+    descricao: "Tratamento eficaz para reduzir manchas escuras, melasma e hiperpigmentação, uniformizando o tom da pele.",
+    procedimentos: "Microagulhamento",
+    beneficios: ["Reduz manchas escuras", "Uniformiza o tom", "Estimula renovação celular", "Pele mais luminosa"],
     imagem: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&h=300&fit=crop",
   },
   {
-    nome: "Limpeza de Pele",
-    descricao: "Procedimento essencial para manter a pele saudável, removendo impurezas e controlando a oleosidade.",
-    beneficios: ["Remove cravos", "Desobstrui poros", "Pele mais limpa", "Prepara para outros tratamentos"],
+    nome: "Flacidez facial",
+    descricao: "Soluções avançadas para combater a flacidez e devolver firmeza ao contorno facial.",
+    procedimentos: "Bioestimuladores e Visage",
+    beneficios: ["Redefine contorno facial", "Aumenta firmeza", "Efeito lifting", "Aparência rejuvenescida"],
+    imagem: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&h=300&fit=crop",
+  },
+  {
+    nome: "Flacidez corporal",
+    descricao: "Tratamentos corporais que combatem a flacidez, promovendo firmeza e melhora da textura da pele.",
+    procedimentos: "Bioestimulador e radiofrequência",
+    beneficios: ["Reduz flacidez", "Melhora textura da pele", "Resultados progressivos", "Não invasivo"],
+    imagem: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop",
+  },
+  {
+    nome: "Gordura localizada",
+    descricao: "Protocolos avançados para redução de gordura localizada e medidas com tecnologia de ponta.",
+    procedimentos: "Criolipólise e enzimas",
+    beneficios: ["Elimina gordura localizada", "Redução de medidas", "Resultados visíveis", "Sem cirurgia"],
     imagem: "https://images.unsplash.com/photo-1552693673-1bf958298935?w=400&h=300&fit=crop",
   },
 ];
@@ -139,6 +145,13 @@ export default function EsteticaPage() {
                 </div>
                 <CardContent className="p-6">
                   <p className="text-slate-600 mb-4">{tratamento.descricao}</p>
+                  {"procedimentos" in tratamento && (
+                    <div className="mb-4 p-3 bg-primary/5 rounded-lg">
+                      <p className="text-sm font-medium text-primary">
+                        {tratamento.procedimentos}
+                      </p>
+                    </div>
+                  )}
                   <div className="space-y-2">
                     {tratamento.beneficios.map((beneficio) => (
                       <div key={beneficio} className="flex items-center gap-2 text-sm">
@@ -217,7 +230,7 @@ export default function EsteticaPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-pink-500 to-rose-500">
+      <section className="py-24 bg-gradient-to-br from-emerald-500 to-teal-500">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Agende sua Avaliação
@@ -227,13 +240,13 @@ export default function EsteticaPage() {
             gratuita com nossos especialistas e descubra como podemos ajudá-lo.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg" className="bg-white text-rose-500 hover:bg-white/90">
+            <Button asChild size="lg" className="bg-white text-emerald-500 hover:bg-white/90">
               <a href="https://wa.me/5555991911033" target="_blank" rel="noopener noreferrer">
                 Agendar Avaliação
                 <ArrowRight className="ml-2 w-4 h-4" />
               </a>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+            <Button asChild size="lg" variant="outline" className="border-white border-2 text-white hover:bg-white hover:text-emerald-500">
               <Link to="/servicos">Ver Outros Serviços</Link>
             </Button>
           </div>

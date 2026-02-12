@@ -5,40 +5,16 @@ import { Dumbbell, ArrowRight, CheckCircle, Users, Clock, Award } from "lucide-r
 
 const modalidades = [
   {
-    nome: "Pilates Solo (Mat)",
-    descricao: "Exercícios realizados no colchonete utilizando o peso do próprio corpo e acessórios como bolas e faixas.",
-    beneficios: ["Flexibilidade", "Fortalecimento", "Consciência corporal", "Sem equipamentos"],
-    imagem: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=300&fit=crop",
-  },
-  {
-    nome: "Pilates Aparelhos",
-    descricao: "Exercícios realizados em equipamentos específicos como Reformer, Cadillac e Chair para trabalho mais intenso.",
-    beneficios: ["Maior resistência", "Variedade de exercícios", "Trabalho específico", "Resultados rápidos"],
-    imagem: "https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=400&h=300&fit=crop",
-  },
-  {
     nome: "Pilates para Gestantes",
     descricao: "Exercícios adaptados para gestantes, ajudando no preparo para o parto e no bem-estar durante a gravidez.",
     beneficios: ["Preparo para o parto", "Alivia desconfortos", "Fortalece assoalho pélvico", "Seguro para bebê"],
     imagem: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop",
   },
   {
-    nome: "Pilates Clínico",
-    descricao: "Pilates com foco terapêutico, indicado para reabilitação de lesões e tratamento de patologias específicas.",
-    beneficios: ["Reabilitação segura", "Acompanhamento fisioterapeuta", "Tratamento de patologias", "Recuperação funcional"],
-    imagem: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
-  },
-  {
-    nome: "Pilates para Idosos",
-    descricao: "Exercícios adaptados para a terceira idade, focando em mobilidade, equilíbrio e qualidade de vida.",
-    beneficios: ["Melhora equilíbrio", "Previne quedas", "Mantém mobilidade", "Socialização"],
-    imagem: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=400&h=300&fit=crop",
-  },
-  {
-    nome: "Pilates Esportivo",
-    descricao: "Voltado para atletas e praticantes de esportes, melhorando performance e prevenindo lesões.",
-    beneficios: ["Melhora performance", "Previne lesões", "Core forte", "Flexibilidade"],
-    imagem: "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=400&h=300&fit=crop",
+    nome: "Pilates com Aparelhos",
+    descricao: "Exercícios realizados em equipamentos específicos como Reformer, Cadillac e Chair para trabalho mais intenso e personalizado.",
+    beneficios: ["Maior resistência", "Variedade de exercícios", "Trabalho específico", "Resultados rápidos"],
+    imagem: "https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=400&h=300&fit=crop",
   },
 ];
 
@@ -160,7 +136,7 @@ export default function PilatesPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {modalidades.map((modalidade) => (
               <Card key={modalidade.nome} className="border-0 shadow-lg overflow-hidden group">
                 <div className="relative h-48 overflow-hidden">
@@ -264,7 +240,7 @@ export default function PilatesPage() {
                 <ArrowRight className="ml-2 w-4 h-4" />
               </a>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+            <Button asChild size="lg" variant="outline" className="border-white border-2 text-white hover:bg-white hover:text-emerald-500">
               <Link to="/servicos">Ver Outros Serviços</Link>
             </Button>
           </div>

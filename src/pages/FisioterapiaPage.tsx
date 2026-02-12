@@ -211,7 +211,7 @@ export default function FisioterapiaPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-blue-500 to-cyan-500">
+      <section className="py-24 bg-gradient-to-br from-emerald-500 to-teal-500">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Agende sua Consulta
@@ -221,13 +221,13 @@ export default function FisioterapiaPage() {
             um plano de tratamento personalizado para suas necessidades.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg" className="bg-white text-blue-500 hover:bg-white/90">
+            <Button asChild size="lg" className="bg-white text-emerald-500 hover:bg-white/90">
               <a href="https://wa.me/5555991911033" target="_blank" rel="noopener noreferrer">
                 Agendar Consulta
                 <ArrowRight className="ml-2 w-4 h-4" />
               </a>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+            <Button asChild size="lg" variant="outline" className="border-white border-2 text-white hover:bg-white hover:text-emerald-500">
               <Link to="/servicos">Ver Outros Serviços</Link>
             </Button>
           </div>
