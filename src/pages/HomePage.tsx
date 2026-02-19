@@ -276,20 +276,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Stats - Redesigned */}
-            <div className="grid grid-cols-2 gap-6">
-              {estatisticas.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="p-8 rounded-2xl bg-gradient-to-br from-teal-500/10 to-teal-600/5 backdrop-blur-md border border-teal-500/20 text-center hover:scale-105 transition-transform duration-300"
-                >
-                  <div className="text-5xl md:text-6xl font-bold text-teal-400 mb-3">
-                    {stat.numero}
-                  </div>
-                  <div className="text-gray-300 font-medium">{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
