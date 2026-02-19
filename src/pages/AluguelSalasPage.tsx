@@ -11,7 +11,9 @@ import {
   Clock,
   MessageCircle,
   Eye,
+  LogIn,
 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 import { salas } from "@/data/salasData";
 
 const beneficios = [
@@ -49,6 +51,7 @@ const beneficios = [
 
 export default function AluguelSalasPage() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const abrirWhatsApp = () => {
     const mensagem = encodeURIComponent(
@@ -90,18 +93,30 @@ export default function AluguelSalasPage() {
               Agende sua visita e conheça nossas instalações.
             </p>
             <div className="flex flex-wrap gap-4">
+              {!isAuthenticated && (
+                <Button
+                  onClick={() => navigate("/login-locatario")}
+                  size="lg"
+                  className="bg-white text-genki-forest hover:bg-white/90 font-semibold"
+                >
+                  <LogIn className="mr-2 w-5 h-5" />
+                  Acessar Área de Locatários
+                </Button>
+              )}
               <Button onClick={abrirWhatsApp} size="lg" className="bg-green-500 hover:bg-green-600">
                 <MessageCircle className="mr-2 w-5 h-5" />
                 Solicitar Orçamento
               </Button>
-              <Button
-                onClick={() => window.scrollTo({ top: document.getElementById("salas")?.offsetTop, behavior: "smooth" })}
-                size="lg"
-                className="bg-white text-genki-forest hover:bg-white/90 font-semibold"
-              >
-                Ver Salas
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
+              {isAuthenticated && (
+                <Button
+                  onClick={() => window.scrollTo({ top: document.getElementById("salas")?.offsetTop, behavior: "smooth" })}
+                  size="lg"
+                  className="bg-white text-genki-forest hover:bg-white/90 font-semibold"
+                >
+                  Ver Salas
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              )}
             </div>
           </div>
         </div>

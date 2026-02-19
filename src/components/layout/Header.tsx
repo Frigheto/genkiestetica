@@ -135,16 +135,6 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
             >
               ALUGUEL DE SALAS
             </Link>
-
-            <Link
-              to="/login"
-              className={cn(
-                "text-sm font-medium uppercase tracking-wide transition-colors",
-                `${textColor} ${hoverColor}`
-              )}
-            >
-              LOGIN
-            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -202,13 +192,6 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
                 )}
               >
                 ALUGUEL DE SALAS
-              </Link>
-              <Link
-                to="/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-6 py-3 text-sm font-medium uppercase tracking-wide text-slate-700 hover:text-genki-forest"
-              >
-                LOGIN
               </Link>
             </nav>
           </div>
