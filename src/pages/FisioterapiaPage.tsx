@@ -12,32 +12,11 @@ const tratamentos = [
     link: "/fisioterapia/ortopedica",
   },
   {
-    nome: "Fisioterapia Neurológica",
-    descricao: "Reabilitação de pacientes com condições neurológicas, promovendo recuperação funcional e qualidade de vida.",
-    beneficios: ["Recuperação motora", "Melhora do equilíbrio", "Independência funcional", "Qualidade de vida"],
-    imagem: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=300&fit=crop",
-    link: "/fisioterapia/neurologica",
-  },
-  {
     nome: "RPG - Reeducação Postural Global",
     descricao: "Método que trabalha as cadeias musculares para correção postural e tratamento de dores crônicas.",
     beneficios: ["Correção postural", "Alívio de tensões", "Flexibilidade", "Consciência corporal"],
     imagem: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
     link: "/fisioterapia/rpg",
-  },
-  {
-    nome: "Pilates Clínico",
-    descricao: "Pilates com foco terapêutico, indicado para reabilitação e tratamento de patologias específicas.",
-    beneficios: ["Fortalecimento", "Estabilização", "Reabilitação segura", "Resultados duradouros"],
-    imagem: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=300&fit=crop",
-    link: "/fisioterapia/pilates-clinico",
-  },
-  {
-    nome: "Eletroterapia",
-    descricao: "Uso de correntes elétricas para tratamento de dores, inflamações e fortalecimento muscular.",
-    beneficios: ["Controle da dor", "Reduz inflamação", "Acelera cicatrização", "Fortalece músculos"],
-    imagem: "https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=400&h=300&fit=crop",
-    link: "/fisioterapia/eletroterapia",
   },
   {
     nome: "Fisioterapia Respiratória",
@@ -81,40 +60,8 @@ export default function FisioterapiaPage() {
         </div>
       </section>
 
-      {/* Vídeo Explicativo do Serviço */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
-                Entenda Como Funciona a Fisioterapia
-              </h2>
-              <p className="text-slate-600 text-lg">
-                Conheça nossos métodos de reabilitação e como podemos ajudar na sua recuperação
-              </p>
-            </div>
-
-            {/* Vídeo Explicativo */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/fisioterapia/explicativo-thumbnail.jpg"
-              >
-                <source src="/videos/fisioterapia/explicativo.mp4" type="video/mp4" />
-                <source src="/videos/fisioterapia/explicativo.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-
-            <div className="mt-6 text-center">
-              <p className="text-sm text-slate-500">
-                Coloque o vídeo explicativo em: /public/videos/fisioterapia/explicativo.mp4
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Vídeo Explicativo do Serviço - REMOVIDO TEMPORARIAMENTE */}
+      {/* Seção "Entenda Como Funciona a Fisioterapia" removida conforme solicitado */}
 
       {/* Treatments Grid */}
       <section className="py-24 bg-slate-50">
@@ -162,61 +109,8 @@ export default function FisioterapiaPage() {
         </div>
       </section>
 
-      {/* Vídeos dos Trabalhos Realizados */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
-              Casos de Sucesso
-            </h2>
-            <p className="text-slate-600">
-              Veja histórias reais de recuperação e reabilitação na GENKI.
-              Conheça os resultados dos nossos tratamentos fisioterapêuticos.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Vídeo 1 */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/fisioterapia/thumbnail1.jpg"
-              >
-                <source src="/videos/fisioterapia/video1.mp4" type="video/mp4" />
-                <source src="/videos/fisioterapia/video1.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-
-            {/* Vídeo 2 */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/fisioterapia/thumbnail2.jpg"
-              >
-                <source src="/videos/fisioterapia/video2.mp4" type="video/mp4" />
-                <source src="/videos/fisioterapia/video2.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-
-            {/* Vídeo 3 */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/fisioterapia/thumbnail3.jpg"
-              >
-                <source src="/videos/fisioterapia/video3.mp4" type="video/mp4" />
-                <source src="/videos/fisioterapia/video3.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Vídeos dos Trabalhos Realizados - REMOVIDO TEMPORARIAMENTE */}
+      {/* Seção "Casos de Sucesso" removida conforme solicitado */}
 
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-emerald-500 to-teal-500">

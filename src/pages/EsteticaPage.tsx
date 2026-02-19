@@ -175,67 +175,8 @@ export default function EsteticaPage() {
         </div>
       </section>
 
-      {/* Vídeos dos Trabalhos Realizados */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
-              Resultados Reais
-            </h2>
-            <p className="text-slate-600">
-              Confira os resultados dos tratamentos estéticos realizados na GENKI.
-              Veja depoimentos e transformações de nossos clientes.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Vídeo 1 */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/estetica/thumbnail1.jpg"
-              >
-                <source src="/videos/estetica/video1.mp4" type="video/mp4" />
-                <source src="/videos/estetica/video1.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-
-            {/* Vídeo 2 */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/estetica/thumbnail2.jpg"
-              >
-                <source src="/videos/estetica/video2.mp4" type="video/mp4" />
-                <source src="/videos/estetica/video2.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-
-            {/* Vídeo 3 */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/estetica/thumbnail3.jpg"
-              >
-                <source src="/videos/estetica/video3.mp4" type="video/mp4" />
-                <source src="/videos/estetica/video3.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-sm text-slate-500">
-              Coloque seus vídeos na pasta: /public/videos/estetica/
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Vídeos dos Trabalhos Realizados - REMOVIDO */}
+      {/* Seção de Resultados Reais removida conforme solicitado */}
 
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-emerald-500 to-teal-500">

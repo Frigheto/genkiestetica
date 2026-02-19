@@ -20,14 +20,14 @@ const servicos = [
   {
     icon: Sparkles,
     title: "Estética",
-    description: "Botox, preenchimento, tratamentos de emagrecimento e rejuvenescimento facial com tecnologia de ponta.",
+    description: "Tratamentos de beleza e rejuvenescimento com técnicas modernas, seguras e baseadas em evidências. Na GENKI, a estética é integrada à saúde.",
     href: "/servicos/estetica",
     image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop",
   },
   {
     icon: Activity,
     title: "Fisioterapia",
-    description: "Reabilitação física, tratamentos ortopédicos, neurológicos e respiratórios com profissionais especializados.",
+    description: "A base da nossa história. Atuamos na prevenção, reabilitação e manutenção da funcionalidade do corpo, com atendimento individualizado e olhar clínico especializado.",
     href: "/servicos/fisioterapia",
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop",
   },
@@ -41,7 +41,7 @@ const servicos = [
   {
     icon: Dumbbell,
     title: "Pilates",
-    description: "Aulas de pilates solo e aparelhos para fortalecimento, flexibilidade e correção postural.",
+    description: "Mais do que exercício, o Pilates na GENKI é um método de cuidado com o corpo. Trabalhamos força, mobilidade, postura e consciência corporal de forma personalizada.",
     href: "/servicos/pilates",
     image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=300&fit=crop",
   },

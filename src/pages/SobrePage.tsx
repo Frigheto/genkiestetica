@@ -43,22 +43,22 @@ const valores = [
   {
     icon: Heart,
     titulo: "Cuidado",
-    descricao: "Tratamos cada paciente com atenção e carinho, priorizando seu bem-estar.",
+    descricao: "Cada paciente é único. Escutamos, avaliamos e planejamos de forma individualizada, respeitando histórias, limites e objetivos.",
   },
   {
     icon: Award,
     titulo: "Excelência",
-    descricao: "Buscamos sempre os melhores resultados com os mais altos padrões de qualidade.",
+    descricao: "Buscamos atualização constante, técnicas baseadas em evidências e atendimento de alto padrão, garantindo segurança e resultados consistentes.",
   },
   {
     icon: Users,
     titulo: "Humanização",
-    descricao: "Acreditamos que o atendimento humanizado faz toda a diferença no tratamento.",
+    descricao: "Acreditamos que saúde vai além do físico. Valorizamos o acolhimento, o respeito e a construção de vínculos verdadeiros.",
   },
   {
     icon: Target,
     titulo: "Inovação",
-    descricao: "Investimos constantemente em tecnologia e atualização profissional.",
+    descricao: "Estamos sempre atentos às evoluções da área da saúde, movimento e estética, trazendo recursos modernos e abordagens integrativas para oferecer o melhor aos nossos pacientes.",
   },
 ];
 
@@ -82,8 +82,16 @@ export default function SobrePage() {
               Conheça a GENKI
             </h1>
             <p className="text-white/70 text-lg">
-              Uma clínica multidisciplinar que reúne o melhor em saúde, estética e bem-estar
-              em um só lugar, com profissionais dedicados e infraestrutura de excelência.
+              A GENKI é uma clínica multiprofissional que une saúde, movimento e estética em um só lugar.
+            </p>
+            <p className="text-white/70 text-lg mt-4">
+              O nome vem do japonês Genki (元気), que significa saúde, energia, vitalidade e bem-estar. Mais do que uma palavra, é uma filosofia. No Japão, é comum perguntar "O-genki desu ka?" — "Você está bem?" — e é exatamente essa pergunta que nos guia todos os dias: como podemos cuidar melhor de você?
+            </p>
+            <p className="text-white/70 text-lg mt-4">
+              À frente da clínica está Karina Brikalski, fisioterapeuta com mais de 20 anos de experiência em traumato-ortopedia e atualmente atuando na área dermatofuncional, trazendo uma visão integrada entre reabilitação, funcionalidade e estética.
+            </p>
+            <p className="text-white/70 text-lg mt-4">
+              A GENKI é mais do que uma clínica — é um espaço de cuidado completo.
             </p>
           </div>
         </div>
@@ -96,24 +104,28 @@ export default function SobrePage() {
             <div>
               <span className="text-primary font-medium mb-2 block">Nossa História</span>
               <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-6">
-                Mais de 10 Anos Cuidando de Você
+                Nossa História
               </h2>
               <div className="space-y-4 text-slate-600">
                 <p>
-                  A GENKI nasceu do sonho de criar um espaço onde saúde e bem-estar
-                  se encontrassem. Fundada em 2014, começamos como uma pequena clínica de
-                  fisioterapia e, ao longo dos anos, expandimos nossos serviços para atender
-                  às diversas necessidades dos nossos pacientes.
+                  A GENKI nasceu em 2022, inicialmente dedicada exclusivamente à Fisioterapia.
                 </p>
                 <p>
-                  Hoje, somos uma clínica multidisciplinar completa, oferecendo tratamentos
-                  de estética, fisioterapia, massoterapia e pilates, sempre com foco na
-                  excelência e no atendimento humanizado.
+                  Com o tempo, a confiança dos pacientes e a chegada de novos profissionais ampliaram nossa visão e estrutura. O que começou como um espaço focado na reabilitação evoluiu para uma clínica multiprofissional, reunindo diferentes especialidades que se complementam.
                 </p>
                 <p>
-                  Nossa missão é proporcionar tratamentos de alta qualidade que transformem
-                  a vida dos nossos pacientes, ajudando-os a alcançar seus objetivos de
-                  saúde e beleza.
+                  <strong>Hoje, oferecemos:</strong>
+                </p>
+                <ul className="list-disc list-inside space-y-2">
+                  <li>Fisioterapia</li>
+                  <li>Pilates</li>
+                  <li>Estética Avançada</li>
+                </ul>
+                <p>
+                  Essa evolução aconteceu de forma natural, acompanhando as necessidades dos nossos pacientes e mantendo sempre o compromisso com a qualidade e o cuidado humanizado.
+                </p>
+                <p>
+                  Além dos atendimentos, a GENKI também disponibiliza salas para coworking, criando oportunidades para que outros profissionais da saúde e bem-estar possam atender em um ambiente estruturado, moderno e acolhedor.
                 </p>
               </div>
             </div>
@@ -162,8 +174,8 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Equipe */}
-      <section className="py-24 bg-white">
+      {/* Equipe - DESATIVADO (aguardando fotos dos profissionais) */}
+      {/* <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-primary font-medium mb-2 block">Nossa Equipe</span>
@@ -196,7 +208,7 @@ export default function SobrePage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Infraestrutura */}
       <section className="py-24 bg-slate-900">
@@ -207,8 +219,7 @@ export default function SobrePage() {
               Ambiente Moderno e Acolhedor
             </h2>
             <p className="text-white/70">
-              Nossa clínica foi projetada para proporcionar conforto e bem-estar
-              em cada detalhe, com equipamentos de última geração.
+              Um espaço pensado nos mínimos detalhes para unir tecnologia, conforto e leveza — onde cada ambiente transmite tranquilidade, profissionalismo e a energia que inspira cuidado e transformação.
             </p>
           </div>
 
@@ -243,8 +254,8 @@ export default function SobrePage() {
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Endereço</h3>
                     <p className="text-slate-600">
-                      Rua Exemplo, 123 - Centro<br />
-                      São Paulo - SP, 01234-567
+                      Rua Serafim Valandro, 613<br />
+                      Centro - Santa Maria - RS, CEP 97010-480
                     </p>
                   </div>
                 </div>

@@ -171,61 +171,8 @@ export default function PilatesPage() {
         </div>
       </section>
 
-      {/* Vídeos dos Trabalhos Realizados */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
-              Aulas e Transformações
-            </h2>
-            <p className="text-slate-600">
-              Veja nossas aulas de Pilates, depoimentos de alunos e as transformações
-              conquistadas com a prática regular na GENKI.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Vídeo 1 */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/pilates/thumbnail1.jpg"
-              >
-                <source src="/videos/pilates/video1.mp4" type="video/mp4" />
-                <source src="/videos/pilates/video1.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-
-            {/* Vídeo 2 */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/pilates/thumbnail2.jpg"
-              >
-                <source src="/videos/pilates/video2.mp4" type="video/mp4" />
-                <source src="/videos/pilates/video2.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-
-            {/* Vídeo 3 */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/pilates/thumbnail3.jpg"
-              >
-                <source src="/videos/pilates/video3.mp4" type="video/mp4" />
-                <source src="/videos/pilates/video3.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Vídeos dos Trabalhos Realizados - REMOVIDO TEMPORARIAMENTE */}
+      {/* Seção "Aulas e Transformações" removida conforme solicitado */}
 
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-emerald-500 to-teal-500">
