@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Menu, X, ChevronDown, Phone } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -135,6 +135,14 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
             >
               ALUGUEL DE SALAS
             </Link>
+
+            <Button
+              onClick={() => window.open("https://wa.me/5555991911033", "_blank")}
+              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold rounded-full px-6 py-2 flex items-center gap-2 whitespace-nowrap"
+            >
+              <Calendar className="w-4 h-4" />
+              AGENDAR AVALIAÇÃO
+            </Button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -193,6 +201,16 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
               >
                 ALUGUEL DE SALAS
               </Link>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  window.open("https://wa.me/5555991911033", "_blank");
+                }}
+                className="mx-6 mt-4 w-[calc(100%-48px)] bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold rounded-full py-3 flex items-center justify-center gap-2 transition-all"
+              >
+                <Calendar className="w-4 h-4" />
+                AGENDAR AVALIAÇÃO
+              </button>
             </nav>
           </div>
         )}
