@@ -23,15 +23,15 @@ export default {
       colors: {
         // Cores GENKI - Paleta Verde Floresta Tropical
         genki: {
-          forest: "#007a5e",      // Verde Floresta Principal
-          green: "#429077",       // Verde Médio
-          light: "#6aa690",       // Verde Claro
-          aqua: "#8fbcab",        // Verde Água
-          mint: "#b4d2c6",        // Verde Menta
-          fog: "#d9e8e2",         // Verde Névoa
-          white: "#f0efe8",       // Branco Estrela
-          text: "#122a22",        // Verde Escuro para Textos
-          rose: "#f0c4d4",        // Rose Gold
+          forest: "hsl(var(--genki-forest-dark))",      // Verde Floresta Profundo
+          green: "hsl(var(--genki-green))",             // Verde Médio
+          light: "hsl(var(--genki-green-light))",       // Verde Claro
+          aqua: "hsl(var(--genki-aqua))",               // Verde Água
+          mint: "hsl(var(--genki-mint))",               // Verde Menta
+          fog: "hsl(var(--genki-fog))",                 // Verde Névoa
+          white: "hsl(var(--genki-white))",             // Branco Estrela
+          text: "hsl(var(--genki-text))",               // Verde Escuro para Textos
+          rose: "hsl(var(--genki-rose-gold))",          // Rosa Vibrante
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
