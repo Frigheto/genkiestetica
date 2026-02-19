@@ -60,7 +60,7 @@ export const salas: Sala[] = [
   {
     id: '2',
     nome: 'Sala 02 - Estética',
-    descricao: 'Ideal para tratamentos de preenchimento e botox com equipamento de ponta.',
+    descricao: 'Ideal para tratamentos de preenchimento e toxina butolínica com equipamento de ponta.',
     area: '15m²',
     preco: 140,
     ativo: true,

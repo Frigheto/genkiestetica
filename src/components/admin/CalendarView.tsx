@@ -60,7 +60,7 @@ const agendamentos: Agendamento[] = [
   {
     id: 5,
     cliente: "Carla Mendes",
-    servico: "Botox",
+    servico: "Toxina Butolínica",
     horario: "16:00",
     duracao: "45min",
     telefone: "(11) 98765-3333",

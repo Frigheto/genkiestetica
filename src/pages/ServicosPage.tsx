@@ -8,8 +8,8 @@ const servicos = [
     icon: Sparkles,
     title: "Estética",
     description:
-      "Tratamentos de beleza e rejuvenescimento com as mais avançadas técnicas e tecnologias do mercado. Botox, preenchimentos, tratamentos de emagrecimento e muito mais.",
-    tratamentos: ["Botox", "Preenchimento Labial", "Harmonização Facial", "Tratamentos de Emagrecimento", "Skincare Avançado"],
+      "Tratamentos de beleza e rejuvenescimento com as mais avançadas técnicas e tecnologias do mercado. Toxina Butolínica, preenchimentos, tratamentos de emagrecimento e muito mais.",
+    tratamentos: ["Toxina Butolínica", "Preenchimento Labial", "Harmonização Facial", "Tratamentos de Emagrecimento", "Skincare Avançado"],
     href: "/servicos/estetica",
     image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=400&fit=crop",
     cor: "from-pink-500 to-rose-500",
