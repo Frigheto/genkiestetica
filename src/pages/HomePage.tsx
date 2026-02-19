@@ -372,7 +372,7 @@ export default function HomePage() {
               <Button asChild size="lg" className="bg-teal-500 hover:bg-teal-600 px-8 rounded-full">
                 <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer">
                   <Phone className="mr-2 w-5 h-5" />
-                  Falar pelo WhatsApp
+                  AGENDE SEU HORÁRIO
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-slate-700 text-white hover:bg-slate-800 px-8 rounded-full">
