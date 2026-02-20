@@ -85,22 +85,13 @@ export default function PilatesPage() {
             </div>
 
             {/* Vídeo Explicativo */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/pilates/explicativo-thumbnail.jpg"
-              >
-                <source src="/videos/pilates/explicativo.mp4" type="video/mp4" />
-                <source src="/videos/pilates/explicativo.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-
-            <div className="mt-6 text-center">
-              <p className="text-sm text-slate-500">
-                Coloque o vídeo explicativo em: /public/videos/pilates/explicativo.mp4
-              </p>
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-slate-100 border border-slate-200">
+              <iframe
+                src="https://drive.google.com/file/d/1Ac9k2Ghet67b2QrQywgYyrsxFLddt8az/preview"
+                className="w-full h-full border-0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+              ></iframe>
             </div>
           </div>
         </div>

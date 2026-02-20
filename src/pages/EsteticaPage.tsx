@@ -101,22 +101,13 @@ export default function EsteticaPage() {
             </div>
 
             {/* Vídeo Explicativo */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/videos/estetica/explicativo-thumbnail.jpg"
-              >
-                <source src="/videos/estetica/explicativo.mp4" type="video/mp4" />
-                <source src="/videos/estetica/explicativo.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-
-            <div className="mt-6 text-center">
-              <p className="text-sm text-slate-500">
-                Coloque o vídeo explicativo em: /public/videos/estetica/explicativo.mp4
-              </p>
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-slate-100 border border-slate-200">
+              <iframe
+                src="https://drive.google.com/file/d/1CGFveRUMnKY7MxsEn8md4_LXA7k9vXIu/preview"
+                className="w-full h-full border-0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+              ></iframe>
             </div>
           </div>
         </div>
