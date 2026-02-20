@@ -223,7 +223,7 @@ export default function HomePageNew() {
               <div className="relative">
                 <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
                   <img
-                    src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&h=600&fit=crop"
+                    src="https://drive.google.com/uc?id=132ft4eVKxcoqUj7N4OuozTfgBU-t6lRx&export=download"
                     alt="Clínica Genki"
                     className="w-full h-full object-cover"
                   />
