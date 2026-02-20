@@ -101,13 +101,19 @@ export default function EsteticaPage() {
             </div>
 
             {/* Vídeo Explicativo */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-slate-100 border border-slate-200">
-              <iframe
-                src="https://drive.google.com/file/d/1CGFveRUMnKY7MxsEn8md4_LXA7k9vXIu/preview"
-                className="w-full h-full border-0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-              ></iframe>
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black border border-slate-200 group">
+              <video
+                className="w-full h-full"
+                controls
+                playsInline
+                preload="metadata"
+              >
+                <source src="https://drive.google.com/uc?id=1CGFveRUMnKY7MxsEn8md4_LXA7k9vXIu&export=download" type="video/mp4" />
+                Seu navegador não suporta vídeos HTML5.
+              </video>
+
+              {/* Overlay para bloquear o botão de pop-out se o iframe ainda fosse usado, 
+                  mas com <video> ele não existirá. Vou deixar o <video> puro primeiro. */}
             </div>
           </div>
         </div>
