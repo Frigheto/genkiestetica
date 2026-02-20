@@ -42,7 +42,7 @@ export default function HomePageNew() {
       {/* Hero Section - Estilo The Wellhall */}
       <section className="relative h-screen overflow-hidden">
         {/* Background Image */}
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: "url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1920&h=1080&fit=crop')",
@@ -53,7 +53,7 @@ export default function HomePageNew() {
         </div>
 
         {/* Content - Centralizado com Parallax */}
-        <div 
+        <div
           className="relative container mx-auto px-4 h-full flex items-center justify-center"
           style={{
             transform: `translateY(${scrollY * 0.5}px)`,
@@ -102,7 +102,7 @@ export default function HomePageNew() {
         {/* Elementos decorativos flutuantes */}
         <div className="absolute top-20 right-10 w-32 h-32 bg-genki-mint rounded-full opacity-20 blur-3xl floating-element"></div>
         <div className="absolute bottom-40 left-20 w-40 h-40 bg-genki-aqua rounded-full opacity-15 blur-3xl floating-element" style={{ animationDelay: '2s' }}></div>
-        
+
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Conteúdo do Hero Movido */}
@@ -120,7 +120,7 @@ export default function HomePageNew() {
 
               {/* Subtítulo */}
               <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
-                Excelência em tratamentos integrados de estética, fisioterapia, 
+                Excelência em tratamentos integrados de estética, fisioterapia,
                 massoterapia e pilates. Uma estrutura completa dedicada ao seu bem-estar.
               </p>
 
@@ -145,8 +145,8 @@ export default function HomePageNew() {
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-6 text-base rounded-full shadow-xl group"
                   asChild
                 >
@@ -155,36 +155,19 @@ export default function HomePageNew() {
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
+                <Button
+                  size="lg"
+                  variant="outline"
                   className="border-2 border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white px-8 py-6 text-base rounded-full"
                   asChild
                 >
                   <a href="https://wa.me/5555991911033" target="_blank" rel="noopener noreferrer">
                     <Phone className="mr-2 h-5 w-5" />
-                    WhatsApp
+                    AGENDE SEU HORÁRIO
                   </a>
                 </Button>
               </div>
 
-              {/* Stats Cards */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-16">
-                {[
-                  { number: "10+", label: "Anos de Experiência" },
-                  { number: "5000+", label: "Pacientes Atendidos" },
-                  { number: "50+", label: "Profissionais" },
-                  { number: "10", label: "Salas Equipadas" },
-                ].map((stat, index) => (
-                  <div
-                    key={index}
-                    className="p-6 rounded-2xl bg-gradient-to-br from-teal-600 to-emerald-600 text-center shadow-lg"
-                  >
-                    <div className="text-4xl font-bold text-white mb-2">{stat.number}</div>
-                    <div className="text-sm text-teal-50">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
             </div>
 
             {/* Grid com Texto e Imagem */}
@@ -197,16 +180,16 @@ export default function HomePageNew() {
                   Para Você
                 </h2>
                 <p className="text-lg text-slate-600 leading-relaxed mb-6">
-                  Somos uma clínica multidisciplinar dedicada a oferecer excelência em 
-                  tratamentos de saúde, bem-estar e beleza. Nossa equipe é formada por 
+                  Somos uma clínica multidisciplinar dedicada a oferecer excelência em
+                  tratamentos de saúde, bem-estar e beleza. Nossa equipe é formada por
                   profissionais altamente qualificados e comprometidos com resultados.
                 </p>
                 <p className="text-lg text-slate-600 leading-relaxed mb-8">
-                  Com mais de 10 anos de experiência, atendemos milhares de pacientes 
-                  com tratamentos personalizados e tecnologia de ponta, sempre priorizando 
+                  Com mais de 10 anos de experiência, atendemos milhares de pacientes
+                  com tratamentos personalizados e tecnologia de ponta, sempre priorizando
                   o atendimento humanizado e individualizado.
                 </p>
-                
+
                 {/* Features List */}
                 <div className="space-y-4 mb-8">
                   {[
@@ -224,8 +207,8 @@ export default function HomePageNew() {
                   ))}
                 </div>
 
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full"
                   asChild
                 >
@@ -239,8 +222,8 @@ export default function HomePageNew() {
               {/* Imagem */}
               <div className="relative">
                 <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
-                  <img 
-                    src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&h=600&fit=crop" 
+                  <img
+                    src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&h=600&fit=crop"
                     alt="Clínica Genki"
                     className="w-full h-full object-cover"
                   />
@@ -263,11 +246,11 @@ export default function HomePageNew() {
       <section className="py-24 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(16,185,129,0.05),transparent_50%)]"></div>
-        
+
         {/* Elementos decorativos de conexão */}
         <div className="absolute top-0 left-1/4 w-1 h-20 bg-gradient-to-b from-genki-green to-transparent opacity-30"></div>
         <div className="absolute top-0 right-1/3 w-1 h-16 bg-gradient-to-b from-genki-light to-transparent opacity-20" style={{ animationDelay: '1s' }}></div>
-        
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <Badge className="mb-4 bg-emerald-100 text-emerald-700 border-0">Nossos Serviços</Badge>
@@ -325,7 +308,7 @@ export default function HomePageNew() {
                     />
                     {/* Glass Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent"></div>
-                    
+
                     {/* Icon */}
                     <div className="absolute top-4 right-4">
                       <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} shadow-lg flex items-center justify-center backdrop-blur-sm`}>
@@ -364,7 +347,7 @@ export default function HomePageNew() {
       {/* Diferenciais da Clínica */}
       <section className="py-24 bg-slate-900 relative overflow-hidden">
         {/* Background Pattern */}
-        <div 
+        <div
           className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: "url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1920&h=1080&fit=crop')",
@@ -423,7 +406,7 @@ export default function HomePageNew() {
 
       {/* CTA Aluguel de Salas - Destaque com Glass Effect */}
       <section className="py-24 relative overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: "url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1920&h=1080&fit=crop')",
@@ -441,7 +424,7 @@ export default function HomePageNew() {
               Alugue uma Sala e<br />Atenda Seus Pacientes
             </h2>
             <p className="text-xl text-emerald-50/90 mb-10 leading-relaxed">
-              10 salas totalmente equipadas com tecnologia de última geração. 
+              10 salas totalmente equipadas com tecnologia de última geração.
               Infraestrutura completa para você focar no que importa: seus pacientes.
             </p>
 
@@ -463,8 +446,8 @@ export default function HomePageNew() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="bg-white text-emerald-600 hover:bg-emerald-50 px-8 py-6 text-lg rounded-full shadow-2xl"
                 asChild
               >
@@ -473,8 +456,8 @@ export default function HomePageNew() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="bg-white/20 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-genki-forest px-8 py-6 text-lg rounded-full font-semibold shadow-lg"
                 asChild
               >
