@@ -92,7 +92,7 @@ export default function PilatesPage() {
                 playsInline
                 preload="metadata"
               >
-                <source src="https://drive.google.com/uc?id=1Ac9k2Ghet67b2QrQywgYyrsxFLddt8az&export=download" type="video/mp4" />
+                <source src="/assets/videos/pilates/explicativo.mp4" type="video/mp4" />
                 Seu navegador não suporta vídeos HTML5.
               </video>
             </div>
