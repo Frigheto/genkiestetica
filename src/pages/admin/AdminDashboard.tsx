@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   LogOut,
   Settings,
@@ -36,13 +37,12 @@ export default function AdminDashboard() {
       {/* Header Imersivo */}
       <header className="bg-genki-forest text-white shadow-lg sticky top-0 z-50 backdrop-blur-lg bg-opacity-95">
         <div className="container mx-auto px-4 py-4 md:py-6 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-inner">
-              <Building2 className="text-genki-forest" size={24} />
-            </div>
-            <div>
-              <h1 className="text-xl md:text-2xl font-serif font-bold tracking-tight">GENKI ADMIN</h1>
-              <p className="text-xs text-white/70 uppercase tracking-widest hidden md:block">Sistema Multidisciplinar</p>
+          <div className="flex items-center gap-4">
+            <h1 className="text-3xl md:text-4xl font-serif text-white leading-none">Genki</h1>
+            <div className="h-8 w-px bg-white/20 hidden md:block" />
+            <div className="hidden md:block">
+              <p className="text-sm font-medium text-white/90">Painel Administrativo</p>
+              <p className="text-[10px] text-white/60 uppercase tracking-widest">Controle de Gestão</p>
             </div>
           </div>
 
