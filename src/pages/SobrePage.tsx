@@ -131,7 +131,7 @@ export default function SobrePage() {
             </div>
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&h=500&fit=crop"
+                src="/assets/images/home/sobre.jpg"
                 alt="Interior da Clínica"
                 className="rounded-2xl shadow-xl"
               />
@@ -225,12 +225,12 @@ export default function SobrePage() {
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              "https://images.unsplash.com/photo-1629909615184-74f495363b67?w=400&h=300&fit=crop",
-              "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400&h=300&fit=crop",
-              "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=300&fit=crop",
+              "/assets/images/infra/estetica.jpg",
+              "/assets/images/infra/pilates.jpg",
+              "/assets/images/infra/consultorio.jpg",
             ].map((img, i) => (
               <div key={i} className="rounded-2xl overflow-hidden">
-                <img src={img} alt={`Infraestrutura ${i + 1}`} className="w-full h-64 object-cover" />
+                <img src={img} alt={`Infraestrutura ${i + 1}`} className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500" />
               </div>
             ))}
           </div>

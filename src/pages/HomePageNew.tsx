@@ -45,7 +45,7 @@ export default function HomePageNew() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1920&h=1080&fit=crop')",
+            backgroundImage: "url('/assets/images/home/sobre.jpg')",
           }}
         >
           {/* Dark Overlay */}
