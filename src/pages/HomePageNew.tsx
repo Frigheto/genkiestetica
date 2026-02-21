@@ -456,13 +456,6 @@ export default function HomePageNew() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button
-                size="lg"
-                className="bg-white/20 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-genki-forest px-8 py-6 text-lg rounded-full font-semibold shadow-lg"
-                asChild
-              >
-                <Link to="/login">Área do Locatário</Link>
-              </Button>
             </div>
           </div>
         </div>
