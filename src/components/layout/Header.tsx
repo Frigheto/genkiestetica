@@ -56,9 +56,11 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <span className={cn("text-2xl font-serif font-bold tracking-tight", logoColor)}>
-              GENKI
-            </span>
+            <img
+              src="/images/genki-logo.png"
+              alt="GENKI - Estética e Saúde Integrada"
+              className="h-16 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation - Direita */}

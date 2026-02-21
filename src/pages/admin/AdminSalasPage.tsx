@@ -13,102 +13,32 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Edit, Trash2, Plus, Upload, Play } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Edit, Calendar as CalendarIcon, Image as ImageIcon, Settings } from 'lucide-react';
 import { salas, atualizarSala } from '@/data/salasData';
-import { Sala, Foto, Video } from '@/types';
+import { Sala } from '@/types';
+import { ImageUploader } from '@/components/admin/ImageUploader';
+import { SalaCalendar } from '@/components/admin/SalaCalendar';
+import { WeeklyScheduleEditor } from '@/components/admin/WeeklyScheduleEditor';
+import { useSalaAvailability } from '@/hooks/useSalaAvailability';
+import { toast } from 'sonner';
 
 export default function AdminSalasPage() {
   const [salasSelecionadas, setSalasSelecionadas] = useState<Sala[]>(salas);
   const [salaEditandoId, setSalaEditandoId] = useState<string | null>(null);
-  const [novaFoto, setNovaFoto] = useState('');
-  const [novoVideo, setNovoVideo] = useState('');
+  const [salaCalendarioId, setSalaCalendarioId] = useState<string>(salas[0]?.id || '');
+
+  // Hook para gerenciar disponibilidade da sala selecionada no calendário
+  const { availability, setWeeklySchedule } = useSalaAvailability(salaCalendarioId);
 
   const abrirEditar = (sala: Sala) => {
     setSalaEditandoId(sala.id);
-  };
-
-  const adicionarFoto = (salaId: string) => {
-    if (!novaFoto.trim()) return;
-
-    const sala = salasSelecionadas.find((s) => s.id === salaId);
-    if (!sala) return;
-
-    if (sala.fotos.length >= 5) {
-      alert('Máximo de 5 fotos atingido!');
-      return;
-    }
-
-    const novaFotoObj: Foto = {
-      id: `foto-${Date.now()}`,
-      url: novaFoto,
-      titulo: `Foto ${sala.fotos.length + 1}`,
-      ordem: sala.fotos.length + 1,
-    };
-
-    const salaAtualizada = {
-      ...sala,
-      fotos: [...sala.fotos, novaFotoObj],
-    };
-
-    atualizarSala(salaId, salaAtualizada);
-    setSalasSelecionadas(
-      salasSelecionadas.map((s) => (s.id === salaId ? salaAtualizada : s))
-    );
-    setNovaFoto('');
-  };
-
-  const removerFoto = (salaId: string, fotoId: string) => {
-    const sala = salasSelecionadas.find((s) => s.id === salaId);
-    if (!sala) return;
-
-    const salaAtualizada = {
-      ...sala,
-      fotos: sala.fotos.filter((f) => f.id !== fotoId),
-    };
-
-    atualizarSala(salaId, salaAtualizada);
-    setSalasSelecionadas(
-      salasSelecionadas.map((s) => (s.id === salaId ? salaAtualizada : s))
-    );
-  };
-
-  const adicionarVideo = (salaId: string) => {
-    if (!novoVideo.trim()) return;
-
-    const sala = salasSelecionadas.find((s) => s.id === salaId);
-    if (!sala) return;
-
-    const novoVideoObj: Video = {
-      id: `video-${Date.now()}`,
-      url: novoVideo,
-      titulo: `Vídeo da ${sala.nome}`,
-    };
-
-    const salaAtualizada = {
-      ...sala,
-      video: novoVideoObj,
-    };
-
-    atualizarSala(salaId, salaAtualizada);
-    setSalasSelecionadas(
-      salasSelecionadas.map((s) => (s.id === salaId ? salaAtualizada : s))
-    );
-    setNovoVideo('');
-  };
-
-  const removerVideo = (salaId: string) => {
-    const sala = salasSelecionadas.find((s) => s.id === salaId);
-    if (!sala) return;
-
-    const salaAtualizada = {
-      ...sala,
-      video: undefined,
-    };
-
-    atualizarSala(salaId, salaAtualizada);
-    setSalasSelecionadas(
-      salasSelecionadas.map((s) => (s.id === salaId ? salaAtualizada : s))
-    );
   };
 
   const alternarAtivo = (salaId: string) => {
@@ -124,24 +54,56 @@ export default function AdminSalasPage() {
     setSalasSelecionadas(
       salasSelecionadas.map((s) => (s.id === salaId ? salaAtualizada : s))
     );
+    toast.success(`Sala ${sala.ativo ? 'desativada' : 'ativada'} com sucesso`);
   };
+
+  /**
+   * Atualiza as fotos da sala
+   */
+  const handlePhotosChange = (salaId: string, photos: Sala['fotos']) => {
+    const sala = salasSelecionadas.find((s) => s.id === salaId);
+    if (!sala) return;
+
+    const salaAtualizada = {
+      ...sala,
+      fotos: photos,
+      updatedAt: new Date(),
+    };
+
+    atualizarSala(salaId, salaAtualizada);
+    setSalasSelecionadas(
+      salasSelecionadas.map((s) => (s.id === salaId ? salaAtualizada : s))
+    );
+  };
+
+  const salaSelecionadaCalendario = salasSelecionadas.find((s) => s.id === salaCalendarioId);
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Gerenciar Salas</h1>
         <p className="text-gray-600">
-          Adicione e atualize informações das salas, fotos e vídeos
+          Administre informações, fotos e disponibilidade das salas
         </p>
       </div>
 
       <Tabs defaultValue="salas" className="w-full">
-        <TabsList>
-          <TabsTrigger value="salas">Salas</TabsTrigger>
-          <TabsTrigger value="midia">Mídias</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="salas" className="flex items-center gap-2">
+            <Settings className="h-4 w-4" />
+            Informações
+          </TabsTrigger>
+          <TabsTrigger value="midia" className="flex items-center gap-2">
+            <ImageIcon className="h-4 w-4" />
+            Fotos
+          </TabsTrigger>
+          <TabsTrigger value="calendario" className="flex items-center gap-2">
+            <CalendarIcon className="h-4 w-4" />
+            Disponibilidade
+          </TabsTrigger>
         </TabsList>
 
-        {/* Aba de Salas */}
+        {/* Aba de Informações das Salas */}
         <TabsContent value="salas" className="mt-6">
           <div className="grid gap-6">
             {salasSelecionadas.map((sala) => (
@@ -149,29 +111,33 @@ export default function AdminSalasPage() {
                 <CardHeader className="flex flex-row items-start justify-between">
                   <div>
                     <CardTitle>{sala.nome}</CardTitle>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {sala.descricao}
-                    </p>
+                    <p className="text-sm text-gray-600 mt-1">{sala.descricao}</p>
                   </div>
                   <div className="flex gap-2">
                     <Badge
                       variant={sala.ativo ? 'default' : 'secondary'}
                       onClick={() => alternarAtivo(sala.id)}
-                      className="cursor-pointer"
+                      className="cursor-pointer hover:opacity-80"
                     >
-                      {sala.ativo ? 'Ativo' : 'Inativo'}
+                      {sala.ativo ? 'Ativa' : 'Inativa'}
                     </Badge>
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button variant="outline" size="sm" onClick={() => abrirEditar(sala.id)}>
-                          <Edit size={16} />
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => abrirEditar(sala.id)}
+                        >
+                          <Edit className="h-4 w-4" />
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="max-w-2xl">
                         <DialogHeader>
                           <DialogTitle>Editar {sala.nome}</DialogTitle>
+                          <DialogDescription>
+                            Altere as informações básicas da sala
+                          </DialogDescription>
                         </DialogHeader>
-                        {/* Formulário de edição pode ser adicionado aqui */}
                         <div className="space-y-4 mt-4">
                           <div>
                             <label className="text-sm font-medium">Nome</label>
@@ -195,7 +161,9 @@ export default function AdminSalasPage() {
                               />
                             </div>
                           </div>
-                          <Button className="w-full">Salvar Alterações</Button>
+                          <Button className="w-full bg-genki-forest hover:bg-genki-forest/90">
+                            Salvar Alterações
+                          </Button>
                         </div>
                       </DialogContent>
                     </Dialog>
@@ -232,145 +200,71 @@ export default function AdminSalasPage() {
           </div>
         </TabsContent>
 
-        {/* Aba de Mídias */}
+        {/* Aba de Fotos */}
         <TabsContent value="midia" className="mt-6">
           <div className="grid gap-6">
             {salasSelecionadas.map((sala) => (
               <Card key={`media-${sala.id}`}>
                 <CardHeader>
                   <CardTitle className="text-lg">{sala.nome}</CardTitle>
+                  <p className="text-sm text-muted-foreground">
+                    Faça upload de fotos ou insira URLs externas
+                  </p>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  {/* Fotos */}
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-semibold">Fotos ({sala.fotos.length}/5)</h3>
-                      {sala.fotos.length < 5 && (
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button size="sm" variant="outline">
-                              <Plus size={16} className="mr-1" />
-                              Adicionar Foto
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>Adicionar Foto</DialogTitle>
-                              <DialogDescription>
-                                Cole a URL da imagem abaixo
-                              </DialogDescription>
-                            </DialogHeader>
-                            <div className="space-y-4 mt-4">
-                              <Input
-                                placeholder="https://exemplo.com/foto.jpg"
-                                value={novaFoto}
-                                onChange={(e) => setNovaFoto(e.target.value)}
-                              />
-                              <Button
-                                onClick={() => adicionarFoto(sala.id)}
-                                className="w-full"
-                              >
-                                <Upload size={16} className="mr-2" />
-                                Adicionar Foto
-                              </Button>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-                      )}
-                    </div>
-
-                    {sala.fotos.length > 0 ? (
-                      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                        {sala.fotos.map((foto) => (
-                          <div
-                            key={foto.id}
-                            className="relative group rounded-lg overflow-hidden bg-gray-100 aspect-square"
-                          >
-                            <img
-                              src={foto.url}
-                              alt={foto.titulo}
-                              className="w-full h-full object-cover"
-                            />
-                            <button
-                              onClick={() => removerFoto(sala.id, foto.id)}
-                              className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition"
-                            >
-                              <Trash2 size={20} className="text-white" />
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-sm text-gray-500">Nenhuma foto adicionada</p>
-                    )}
-                  </div>
-
-                  <div className="border-t pt-6">
-                    {/* Vídeo */}
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold">Vídeo</h3>
-                        {!sala.video && (
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button size="sm" variant="outline">
-                                <Plus size={16} className="mr-1" />
-                                Adicionar Vídeo
-                              </Button>
-                            </DialogTrigger>
-                            <DialogContent>
-                              <DialogHeader>
-                                <DialogTitle>Adicionar Vídeo</DialogTitle>
-                                <DialogDescription>
-                                  Cole a URL do embed do YouTube (ex: https://www.youtube.com/embed/...)
-                                </DialogDescription>
-                              </DialogHeader>
-                              <div className="space-y-4 mt-4">
-                                <Input
-                                  placeholder="https://www.youtube.com/embed/..."
-                                  value={novoVideo}
-                                  onChange={(e) => setNovoVideo(e.target.value)}
-                                />
-                                <Button
-                                  onClick={() => adicionarVideo(sala.id)}
-                                  className="w-full"
-                                >
-                                  <Upload size={16} className="mr-2" />
-                                  Adicionar Vídeo
-                                </Button>
-                              </div>
-                            </DialogContent>
-                          </Dialog>
-                        )}
-                      </div>
-
-                      {sala.video ? (
-                        <div className="space-y-3">
-                          <div className="aspect-video bg-gray-800 rounded-lg overflow-hidden">
-                            <iframe
-                              src={sala.video.url}
-                              title={sala.video.titulo}
-                              className="w-full h-full"
-                              allowFullScreen
-                            ></iframe>
-                          </div>
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => removerVideo(sala.id)}
-                          >
-                            <Trash2 size={16} className="mr-2" />
-                            Remover Vídeo
-                          </Button>
-                        </div>
-                      ) : (
-                        <p className="text-sm text-gray-500">Nenhum vídeo adicionado</p>
-                      )}
-                    </div>
-                  </div>
+                <CardContent>
+                  <ImageUploader
+                    photos={sala.fotos}
+                    onPhotosChange={(photos) => handlePhotosChange(sala.id, photos)}
+                    maxPhotos={5}
+                  />
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </TabsContent>
+
+        {/* Aba de Calendário/Disponibilidade */}
+        <TabsContent value="calendario" className="mt-6">
+          <div className="space-y-6">
+            {/* Seletor de Sala */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Selecione a Sala</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Select value={salaCalendarioId} onValueChange={setSalaCalendarioId}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Selecione uma sala" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {salasSelecionadas.map((sala) => (
+                      <SelectItem key={sala.id} value={sala.id}>
+                        {sala.nome} - {sala.area} - R${sala.preco}/h
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </CardContent>
+            </Card>
+
+            {/* Horário Semanal */}
+            {salaSelecionadaCalendario && (
+              <WeeklyScheduleEditor
+                schedule={availability.weeklySchedule}
+                onChange={(schedule) => {
+                  setWeeklySchedule(schedule);
+                  toast.success('Horário semanal atualizado');
+                }}
+              />
+            )}
+
+            {/* Calendário de Disponibilidade */}
+            {salaSelecionadaCalendario && (
+              <SalaCalendar
+                salaId={salaCalendarioId}
+                salaName={salaSelecionadaCalendario.nome}
+              />
+            )}
           </div>
         </TabsContent>
       </Tabs>

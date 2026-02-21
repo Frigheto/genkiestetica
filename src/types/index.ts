@@ -191,3 +191,34 @@ export interface Video {
   titulo?: string;
   thumbnail?: string;
 }
+
+// Disponibilidade da sala (para admin gerenciar)
+export interface SalaAvailability {
+  blockedDates: string[];              // ISO date strings (dias bloqueados completamente)
+  blockedTimeSlots: Record<string, string[]>;  // { "2026-02-25": ["09:00", "14:00"] }
+  weeklySchedule: WeeklySchedule;      // Horário padrão semanal
+}
+
+// Horário semanal padrão
+export interface WeeklySchedule {
+  monday: DaySchedule;
+  tuesday: DaySchedule;
+  wednesday: DaySchedule;
+  thursday: DaySchedule;
+  friday: DaySchedule;
+  saturday: DaySchedule;
+  sunday: DaySchedule;
+}
+
+// Configuração de horário para um dia da semana
+export interface DaySchedule {
+  enabled: boolean;    // Se o dia está habilitado
+  start: string;       // Horário de início (ex: "08:00")
+  end: string;         // Horário de fim (ex: "20:00")
+}
+
+// Slot de horário (para seleção)
+export interface TimeSlot {
+  time: string;        // Horário (ex: "09:00")
+  available: boolean;  // Se está disponível ou bloqueado
+}
