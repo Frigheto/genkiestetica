@@ -8,7 +8,14 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { SalaAvailability, WeeklySchedule } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
 import { Badge } from '../ui/badge';
-import { Info } from 'lucide-react';
+import { Info, Calendar as CalendarIcon, Clock, MapPin } from 'lucide-react';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+} from "../ui/dialog";
 
 const locales = {
     'pt-BR': ptBR,
@@ -25,6 +32,7 @@ const localizer = dateFnsLocalizer({
 export function MultiSalaCalendar() {
     const [view, setView] = useState<View>(Views.MONTH);
     const [date, setDate] = useState(new Date());
+    const [selectedEvent, setSelectedEvent] = useState<any>(null);
 
     // Pegamos todas as disponibilidades do localStorage
     const [allAvailability] = useLocalStorage<Record<string, SalaAvailability>>(
@@ -168,6 +176,7 @@ export function MultiSalaCalendar() {
                         onNavigate={setDate}
                         eventPropGetter={eventPropGetter}
                         dayPropGetter={dayPropGetter}
+                        onSelectEvent={(event) => setSelectedEvent(event)}
                         messages={{
                             next: 'Próximo',
                             previous: 'Anterior',
@@ -181,6 +190,62 @@ export function MultiSalaCalendar() {
                     />
                 </div>
             </CardContent>
+
+            {/* Modal de Detalhes do Evento */}
+            <Dialog open={!!selectedEvent} onOpenChange={() => setSelectedEvent(null)}>
+                <DialogContent className="sm:max-w-md border-none shadow-2xl">
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl font-serif flex items-center gap-2">
+                            <div className={`w-3 h-3 rounded-full ${selectedEvent?.status === 'blocked' ? 'bg-red-500' : 'bg-amber-500'}`} />
+                            Detalhes do Bloqueio
+                        </DialogTitle>
+                        <DialogDescription>
+                            Informações sobre a indisponibilidade da sala
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    {selectedEvent && (
+                        <div className="space-y-6 pt-4">
+                            <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                                <div className="w-12 h-12 bg-genki-forest/10 rounded-full flex items-center justify-center text-genki-forest">
+                                    <MapPin size={24} />
+                                </div>
+                                <div>
+                                    <p className="text-xs text-gray-400 uppercase tracking-widest font-bold">Sala / Unidade</p>
+                                    <p className="font-bold text-gray-900 text-lg">{selectedEvent.salaNome}</p>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-1">
+                                    <div className="flex items-center gap-2 text-gray-500 text-sm">
+                                        <CalendarIcon size={14} />
+                                        <span>Data</span>
+                                    </div>
+                                    <p className="font-medium">{format(selectedEvent.start, "dd 'de' MMMM, yyyy", { locale: ptBR })}</p>
+                                </div>
+                                <div className="space-y-1">
+                                    <div className="flex items-center gap-2 text-gray-500 text-sm">
+                                        <Clock size={14} />
+                                        <span>Horário</span>
+                                    </div>
+                                    <p className="font-medium">
+                                        {selectedEvent.allDay ? "Dia Inteiro" : `${format(selectedEvent.start, 'HH:mm')} - ${format(selectedEvent.end, 'HH:mm')}`}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="bg-amber-50 border border-amber-100 p-4 rounded-xl">
+                                <p className="text-sm text-amber-900 leading-relaxed font-medium">
+                                    {selectedEvent.status === 'blocked'
+                                        ? "Esta sala está marcada como indisponível para o dia inteiro nesta data."
+                                        : "Esta janela de horário foi bloqueada manualmente nas configurações da sala."}
+                                </p>
+                            </div>
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
 
             <style>{`
         .calendar-modern .rbc-calendar {
