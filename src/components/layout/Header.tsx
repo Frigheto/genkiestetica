@@ -56,11 +56,9 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <img
-              src="/images/genki-logo.png"
-              alt="GENKI - Estética e Saúde Integrada"
-              className="h-16 w-auto object-contain"
-            />
+            <span className={cn("text-4xl font-serif leading-none tracking-tight", logoColor)}>
+              Genki
+            </span>
           </Link>
 
           {/* Desktop Navigation - Direita */}
@@ -90,7 +88,7 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
             </Link>
 
             {/* Dropdown Serviços */}
-            <div 
+            <div
               ref={servicosRef}
               className="relative"
             >
@@ -109,7 +107,7 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
                   servicosOpen && "rotate-180"
                 )} />
               </button>
-              
+
               {servicosOpen && (
                 <div className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-sm border border-genki-forest/20 rounded-lg shadow-2xl py-2">
                   {servicos.map((servico) => (
