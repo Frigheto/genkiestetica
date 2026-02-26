@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AdminProvider, useAdmin } from "@/contexts/AdminContext";
+import { SalasProvider } from "@/contexts/SalasContext";
+import { ServicosProvider } from "@/contexts/ServicosContext";
 import ScrollToTop from "@/components/ScrollToTop";
 
 // Layout
@@ -55,6 +57,7 @@ import PilatesAparelhosPage from "./pages/pilates/PilatesAparelhosPage";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminSalasPage from "./pages/admin/AdminSalasPage";
+import AdminServicosPage from "./pages/admin/AdminServicosPage";
 import AdminConfiguracoes from "./pages/admin/AdminConfiguracoes";
 import ClientesCadastrados from "./pages/admin/ClientesCadastrados";
 
@@ -123,15 +126,23 @@ function AppRoutes() {
           </AdminProtectedRoute>
         } 
       />
-      <Route 
-        path="/admin/salas" 
+      <Route
+        path="/admin/salas"
         element={
           <AdminProtectedRoute>
             <AdminSalasPage />
           </AdminProtectedRoute>
-        } 
+        }
       />
-      <Route 
+      <Route
+        path="/admin/servicos"
+        element={
+          <AdminProtectedRoute>
+            <AdminServicosPage />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
         path="/admin/configuracoes" 
         element={
           <AdminProtectedRoute>
@@ -157,14 +168,18 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <AdminProvider>
       <AuthProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <ScrollToTop />
-            <AppRoutes />
-          </BrowserRouter>
-        </TooltipProvider>
+        <SalasProvider>
+          <ServicosProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <ScrollToTop />
+                <AppRoutes />
+              </BrowserRouter>
+            </TooltipProvider>
+          </ServicosProvider>
+        </SalasProvider>
       </AuthProvider>
     </AdminProvider>
   </QueryClientProvider>

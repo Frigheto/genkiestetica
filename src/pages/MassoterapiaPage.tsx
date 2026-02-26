@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Hand, ArrowRight, CheckCircle } from "lucide-react";
+import { VideoPlayer } from "@/components/VideoPlayer";
+import { useServicos } from "@/contexts/ServicosContext";
 
 const tratamentos = [
   {
@@ -49,6 +51,13 @@ const tratamentos = [
 ];
 
 export default function MassoterapiaPage() {
+  const { servicos } = useServicos();
+  const servico = servicos.find((s) => s.id === 'massoterapia');
+
+  if (!servico) {
+    return <div>Serviço não encontrado</div>;
+  }
+
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -95,23 +104,21 @@ export default function MassoterapiaPage() {
             </div>
 
             {/* Vídeo Explicativo */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-slate-100">
-              <video
-                className="w-full h-full object-cover"
-                controls
+            {servico.videoUrl ? (
+              <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black">
+                <iframe
+                  src={servico.videoUrl}
+                  className="w-full h-full"
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <VideoPlayer
+                src="/videos/massoterapia/explicativo.mp4"
                 poster="/videos/massoterapia/explicativo-thumbnail.jpg"
-              >
-                <source src="/videos/massoterapia/explicativo.mp4" type="video/mp4" />
-                <source src="/videos/massoterapia/explicativo.webm" type="video/webm" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
-
-            <div className="mt-6 text-center">
-              <p className="text-sm text-slate-500">
-                Coloque o vídeo explicativo em: /public/videos/massoterapia/explicativo.mp4
-              </p>
-            </div>
+                title="Massoterapia"
+              />
+            )}
           </div>
         </div>
       </section>

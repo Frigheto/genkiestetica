@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dumbbell, ArrowRight, CheckCircle, Users, Clock, Award } from "lucide-react";
+import { VideoPlayer } from "@/components/VideoPlayer";
+import { useServicos } from "@/contexts/ServicosContext";
 
 const modalidades = [
   {
@@ -39,6 +41,13 @@ const diferenciais = [
 ];
 
 export default function PilatesPage() {
+  const { servicos } = useServicos();
+  const servico = servicos.find((s) => s.id === 'pilates');
+
+  if (!servico) {
+    return <div>Serviço não encontrado</div>;
+  }
+
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -85,17 +94,21 @@ export default function PilatesPage() {
             </div>
 
             {/* Vídeo Explicativo */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black border border-slate-200 group">
-              <video
-                className="w-full h-full"
-                controls
-                playsInline
-                preload="metadata"
-              >
-                <source src="/assets/videos/pilates/explicativo.mp4" type="video/mp4" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-            </div>
+            {servico.videoUrl ? (
+              <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black">
+                <iframe
+                  src={servico.videoUrl}
+                  className="w-full h-full"
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <VideoPlayer
+                src="/videos/pilates/explicativo.mp4"
+                poster="/videos/pilates/poster.jpg"
+                title="Pilates"
+              />
+            )}
           </div>
         </div>
       </section>

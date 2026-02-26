@@ -93,13 +93,21 @@ export default function AdminDashboard() {
             <h2 className="text-3xl font-serif font-bold text-gray-900">Bom dia, Administrador</h2>
             <p className="text-gray-500 mt-1">Gestão de salas e usuários registrados.</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             <Button
               onClick={() => navigate("/admin/salas")}
               className="bg-genki-forest hover:bg-genki-forest/90 rounded-xl shadow-lg shadow-genki-forest/20 flex items-center gap-2"
             >
               <Plus size={18} />
-              Adicionar Sala
+              Salas
+            </Button>
+            <Button
+              onClick={() => navigate("/admin/servicos")}
+              variant="secondary"
+              className="rounded-xl shadow-sm flex items-center gap-2"
+            >
+              <Plus size={18} />
+              Serviços
             </Button>
             <Button
               onClick={() => navigate("/admin/configuracoes")}

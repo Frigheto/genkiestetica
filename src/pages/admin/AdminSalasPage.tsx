@@ -21,39 +21,76 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Edit, Calendar as CalendarIcon, Image as ImageIcon, Settings } from 'lucide-react';
-import { salas, atualizarSala } from '@/data/salasData';
 import { Sala } from '@/types';
 import { ImageUploader } from '@/components/admin/ImageUploader';
 import { SalaCalendar } from '@/components/admin/SalaCalendar';
 import { WeeklyScheduleEditor } from '@/components/admin/WeeklyScheduleEditor';
 import { useSalaAvailability } from '@/hooks/useSalaAvailability';
+import { useSalas } from '@/contexts/SalasContext';
 import { toast } from 'sonner';
 
 export default function AdminSalasPage() {
-  const [salasSelecionadas, setSalasSelecionadas] = useState<Sala[]>(salas);
+  const { salas: salasSelecionadas, atualizarSala } = useSalas();
   const [salaEditandoId, setSalaEditandoId] = useState<string | null>(null);
-  const [salaCalendarioId, setSalaCalendarioId] = useState<string>(salas[0]?.id || '');
+  const [salaCalendarioId, setSalaCalendarioId] = useState<string>(salasSelecionadas[0]?.id || '');
+  const [dialogoAberto, setDialogoAberto] = useState(false);
+
+  // Estado para edição de sala
+  const [nomeEditando, setNomeEditando] = useState('');
+  const [descricaoEditando, setDescricaoEditando] = useState('');
+  const [areaEditando, setAreaEditando] = useState('');
+  const [precoEditando, setPrecoEditando] = useState(0);
+  const [urlVideoEditando, setUrlVideoEditando] = useState('');
 
   // Hook para gerenciar disponibilidade da sala selecionada no calendário
   const { availability, setWeeklySchedule } = useSalaAvailability(salaCalendarioId);
 
   const abrirEditar = (sala: Sala) => {
     setSalaEditandoId(sala.id);
+    setNomeEditando(sala.nome);
+    setDescricaoEditando(sala.descricao);
+    setAreaEditando(sala.area);
+    setPrecoEditando(sala.preco);
+    setUrlVideoEditando(sala.video?.url || '');
+    setDialogoAberto(true);
+  };
+
+  const salvarAlteracoesSala = () => {
+    const sala = salasSelecionadas.find((s) => s.id === salaEditandoId);
+    if (!sala) return;
+
+    const atualizacoes: Partial<Sala> = {
+      nome: nomeEditando,
+      descricao: descricaoEditando,
+      area: areaEditando,
+      preco: precoEditando,
+    };
+
+    // Se houver URL de vídeo, atualizar ou criar
+    if (urlVideoEditando.trim()) {
+      atualizacoes.video = {
+        id: sala.video?.id || `video-${sala.id}`,
+        url: urlVideoEditando,
+        titulo: `Tour da ${nomeEditando}`,
+      };
+    } else {
+      atualizacoes.video = undefined;
+    }
+
+    atualizarSala(salaEditandoId, atualizacoes);
+
+    setDialogoAberto(false);
+    setSalaEditandoId(null);
+    toast.success('Sala atualizada com sucesso!');
   };
 
   const alternarAtivo = (salaId: string) => {
     const sala = salasSelecionadas.find((s) => s.id === salaId);
     if (!sala) return;
 
-    const salaAtualizada = {
-      ...sala,
+    atualizarSala(salaId, {
       ativo: !sala.ativo,
-    };
-
-    atualizarSala(salaId, salaAtualizada);
-    setSalasSelecionadas(
-      salasSelecionadas.map((s) => (s.id === salaId ? salaAtualizada : s))
-    );
+    });
     toast.success(`Sala ${sala.ativo ? 'desativada' : 'ativada'} com sucesso`);
   };
 
@@ -61,19 +98,7 @@ export default function AdminSalasPage() {
    * Atualiza as fotos da sala
    */
   const handlePhotosChange = (salaId: string, photos: Sala['fotos']) => {
-    const sala = salasSelecionadas.find((s) => s.id === salaId);
-    if (!sala) return;
-
-    const salaAtualizada = {
-      ...sala,
-      fotos: photos,
-      updatedAt: new Date(),
-    };
-
-    atualizarSala(salaId, salaAtualizada);
-    setSalasSelecionadas(
-      salasSelecionadas.map((s) => (s.id === salaId ? salaAtualizada : s))
-    );
+    atualizarSala(salaId, { fotos: photos });
   };
 
   const salaSelecionadaCalendario = salasSelecionadas.find((s) => s.id === salaCalendarioId);
@@ -121,47 +146,77 @@ export default function AdminSalasPage() {
                     >
                       {sala.ativo ? 'Ativa' : 'Inativa'}
                     </Badge>
-                    <Dialog>
+                    <Dialog open={dialogoAberto && salaEditandoId === sala.id} onOpenChange={(open) => {
+                      if (!open) {
+                        setDialogoAberto(false);
+                        setSalaEditandoId(null);
+                      }
+                    }}>
                       <DialogTrigger asChild>
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => abrirEditar(sala.id)}
+                          onClick={() => abrirEditar(sala)}
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="max-w-2xl">
+                      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                         <DialogHeader>
                           <DialogTitle>Editar {sala.nome}</DialogTitle>
                           <DialogDescription>
                             Altere as informações básicas da sala
                           </DialogDescription>
                         </DialogHeader>
-                        <div className="space-y-4 mt-4">
+                        <div className="space-y-4 mt-4 pr-4">
                           <div>
                             <label className="text-sm font-medium">Nome</label>
-                            <Input defaultValue={sala.nome} />
+                            <Input
+                              value={nomeEditando}
+                              onChange={(e) => setNomeEditando(e.target.value)}
+                            />
                           </div>
                           <div>
                             <label className="text-sm font-medium">Descrição</label>
-                            <Textarea defaultValue={sala.descricao} rows={3} />
+                            <Textarea
+                              value={descricaoEditando}
+                              onChange={(e) => setDescricaoEditando(e.target.value)}
+                              rows={3}
+                            />
                           </div>
                           <div className="grid grid-cols-2 gap-4">
                             <div>
                               <label className="text-sm font-medium">Área</label>
-                              <Input defaultValue={sala.area} />
+                              <Input
+                                value={areaEditando}
+                                onChange={(e) => setAreaEditando(e.target.value)}
+                              />
                             </div>
                             <div>
-                              <label className="text-sm font-medium">Preço por Hora</label>
+                              <label className="text-sm font-medium">Preço por Hora (R$)</label>
                               <Input
                                 type="number"
-                                defaultValue={sala.preco}
+                                value={precoEditando}
+                                onChange={(e) => setPrecoEditando(parseFloat(e.target.value) || 0)}
                                 step="0.01"
                               />
                             </div>
                           </div>
-                          <Button className="w-full bg-genki-forest hover:bg-genki-forest/90">
+                          <div>
+                            <label className="text-sm font-medium">URL do Vídeo (YouTube embed)</label>
+                            <Input
+                              placeholder="https://www.youtube.com/embed/VIDEO_ID"
+                              value={urlVideoEditando}
+                              onChange={(e) => setUrlVideoEditando(e.target.value)}
+                            />
+                            <p className="text-xs text-gray-500 mt-1">
+                              Cole a URL de embed do YouTube. Ex: https://www.youtube.com/embed/dQw4w9WgXcQ
+                            </p>
+                          </div>
+                          <Button
+                            onClick={salvarAlteracoesSala}
+                            className="w-full bg-genki-forest hover:bg-genki-forest/90"
+                          >
                             Salvar Alterações
                           </Button>
                         </div>

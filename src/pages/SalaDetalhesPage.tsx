@@ -5,11 +5,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { ChevronLeft, ChevronRight, MessageCircle, Play, X } from 'lucide-react';
 import { Sala } from '@/types';
-import { salas } from '@/data/salasData';
+import { useSalas } from '@/contexts/SalasContext';
 
 export default function SalaDetalhesPage() {
   const { salaId } = useParams();
   const navigate = useNavigate();
+  const { salas } = useSalas();
   const [fotoAtiva, setFotoAtiva] = useState(0);
   const [videoAberto, setVideoAberto] = useState(false);
 
@@ -157,12 +158,12 @@ export default function SalaDetalhesPage() {
         {/* Sidebar com ações */}
         <div>
           {/* Vídeo */}
-          {sala.video && (
-            <Card className="mb-6">
-              <CardHeader>
-                <CardTitle className="text-lg">Vídeo da Sala</CardTitle>
-              </CardHeader>
-              <CardContent>
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="text-lg">Vídeo da Sala</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {sala.video ? (
                 <button
                   onClick={() => setVideoAberto(true)}
                   className="w-full aspect-video bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition relative group"
@@ -183,9 +184,15 @@ export default function SalaDetalhesPage() {
                     <Play size={48} className="text-white" />
                   </div>
                 </button>
-              </CardContent>
-            </Card>
-          )}
+              ) : (
+                <div className="w-full aspect-video bg-gradient-to-br from-slate-100 to-slate-200 rounded-lg flex flex-col items-center justify-center">
+                  <Play size={48} className="text-slate-400 mb-2" />
+                  <p className="text-slate-600 font-medium">Novidade em Breve</p>
+                  <p className="text-slate-500 text-sm mt-1">Vídeo sendo preparado</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
           {/* Botão WhatsApp */}
           <Button

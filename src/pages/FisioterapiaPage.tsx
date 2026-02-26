@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Activity, ArrowRight, CheckCircle } from "lucide-react";
+import { VideoPlayer } from "@/components/VideoPlayer";
+import { useServicos } from "@/contexts/ServicosContext";
 
 const tratamentos = [
   {
@@ -28,6 +30,13 @@ const tratamentos = [
 ];
 
 export default function FisioterapiaPage() {
+  const { servicos } = useServicos();
+  const servico = servicos.find((s) => s.id === 'fisioterapia');
+
+  if (!servico) {
+    return <div>Serviço não encontrado</div>;
+  }
+
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -60,8 +69,38 @@ export default function FisioterapiaPage() {
         </div>
       </section>
 
-      {/* Vídeo Explicativo do Serviço - REMOVIDO TEMPORARIAMENTE */}
-      {/* Seção "Entenda Como Funciona a Fisioterapia" removida conforme solicitado */}
+      {/* Vídeo Explicativo do Serviço */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
+                Entenda Como Funciona a Fisioterapia
+              </h2>
+              <p className="text-slate-600 text-lg">
+                Veja como nossos tratamentos fisioterapêuticos podem melhorar sua qualidade de vida
+              </p>
+            </div>
+
+            {/* Vídeo Explicativo */}
+            {servico.videoUrl ? (
+              <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black">
+                <iframe
+                  src={servico.videoUrl}
+                  className="w-full h-full"
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <VideoPlayer
+                src="/videos/fisioterapia/explicativo.mp4"
+                poster="/videos/fisioterapia/poster.jpg"
+                title="Fisioterapia"
+              />
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* Treatments Grid */}
       <section className="py-24 bg-slate-50">

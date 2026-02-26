@@ -14,7 +14,7 @@ import {
   LogIn,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import { salas } from "@/data/salasData";
+import { useSalas } from "@/contexts/SalasContext";
 
 const beneficios = [
   {
@@ -52,6 +52,7 @@ const beneficios = [
 export default function AluguelSalasPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const { salas } = useSalas();
 
   const abrirWhatsApp = () => {
     const mensagem = encodeURIComponent(
@@ -186,7 +187,11 @@ export default function AluguelSalasPage() {
                   {/* Fotos e Vídeo */}
                   <div className="mb-3 text-xs text-slate-600 space-y-1">
                     <p>📸 {sala.fotos.length} fotos</p>
-                    {sala.video && <p>🎥 Vídeo disponível</p>}
+                    {sala.video ? (
+                      <p>🎥 Vídeo disponível</p>
+                    ) : (
+                      <p className="text-amber-600 font-medium">🎥 Novidade em breve</p>
+                    )}
                   </div>
 
                   {/* Botões */}

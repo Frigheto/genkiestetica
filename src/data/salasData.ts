@@ -50,7 +50,7 @@ export const salas: Sala[] = [
     ],
     video: {
       id: 'video-1',
-      url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      url: 'https://www.youtube.com/embed/7nS0L6LN31s',
       titulo: 'Tour da Sala 01',
       thumbnail: 'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400&h=300&fit=crop',
     },
@@ -106,7 +106,7 @@ export const salas: Sala[] = [
     ],
     video: {
       id: 'video-2',
-      url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      url: 'https://www.youtube.com/embed/aqz-KE-bpKQ',
       titulo: 'Tour da Sala 02',
     },
     createdAt: new Date('2026-01-01'),

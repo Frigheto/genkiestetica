@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles, ArrowRight, CheckCircle } from "lucide-react";
+import { VideoPlayer } from "@/components/VideoPlayer";
+import { useServicos } from "@/contexts/ServicosContext";
 
 const tratamentos = [
   {
@@ -55,6 +57,13 @@ const tratamentos = [
 ];
 
 export default function EsteticaPage() {
+  const { servicos } = useServicos();
+  const servico = servicos.find((s) => s.id === 'estetica');
+
+  if (!servico) {
+    return <div>Serviço não encontrado</div>;
+  }
+
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -101,20 +110,21 @@ export default function EsteticaPage() {
             </div>
 
             {/* Vídeo Explicativo */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black border border-slate-200 group">
-              <video
-                className="w-full h-full"
-                controls
-                playsInline
-                preload="metadata"
-              >
-                <source src="/assets/videos/estetica/explicativo.mp4" type="video/mp4" />
-                Seu navegador não suporta vídeos HTML5.
-              </video>
-
-              {/* Overlay para bloquear o botão de pop-out se o iframe ainda fosse usado, 
-                  mas com <video> ele não existirá. Vou deixar o <video> puro primeiro. */}
-            </div>
+            {servico.videoUrl ? (
+              <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black">
+                <iframe
+                  src={servico.videoUrl}
+                  className="w-full h-full"
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <VideoPlayer
+                src="/videos/estetica/explicativo.mp4"
+                poster="/videos/estetica/poster.jpg"
+                title="Estética"
+              />
+            )}
           </div>
         </div>
       </section>
