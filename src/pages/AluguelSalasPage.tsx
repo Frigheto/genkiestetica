@@ -143,75 +143,77 @@ export default function AluguelSalasPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {salas.map((sala) => (
-              <Card key={sala.id} className="border-0 shadow-lg overflow-hidden group flex flex-col h-full">
-                {/* Imagem */}
-                <div className="relative h-40 overflow-hidden bg-gray-200">
+              <Card key={sala.id} className="bg-white shadow-lg hover:shadow-2xl rounded-2xl overflow-hidden group flex flex-col h-full transition-all duration-300">
+                {/* Imagem com hover overlay */}
+                <div className="relative h-56 overflow-hidden bg-gray-200">
                   {sala.fotos.length > 0 ? (
-                    <>
-                      <img
-                        src={sala.fotos[0].url}
-                        alt={sala.nome}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                    </>
+                    <img
+                      src={sala.fotos[0].url}
+                      alt={sala.nome}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-slate-300 to-slate-400 flex items-center justify-center text-white">
                       <Building2 size={40} />
                     </div>
                   )}
-                  <div className="absolute top-3 right-3 px-2 py-1 rounded bg-white/90 text-xs font-medium">
-                    {sala.area}
+
+                  {/* Hover Overlay com info de mídia */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-genki-forest-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-4">
+                    <div className="text-white text-sm text-center space-y-2">
+                      <p>📸 {sala.fotos.length} fotos</p>
+                      <p>🎥 {sala.video ? 'Vídeo disponível' : 'Novidade em breve'}</p>
+                    </div>
+                    <Button
+                      onClick={abrirWhatsApp}
+                      size="sm"
+                      className="bg-green-500 hover:bg-green-600 text-white"
+                    >
+                      <MessageCircle size={16} className="mr-2" />
+                      Alugar
+                    </Button>
                   </div>
+
+                  {/* Status badge */}
                   {!sala.ativo && (
-                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
                       <Badge className="bg-red-600">Indisponível</Badge>
                     </div>
                   )}
                 </div>
 
-                {/* Conteúdo */}
-                <CardContent className="p-4 flex-1 flex flex-col">
-                  <h3 className="font-semibold text-slate-900 mb-1">{sala.nome}</h3>
-                  <p className="text-slate-600 text-sm mb-3 flex-1">{sala.descricao}</p>
+                {/* Conteúdo minimalista */}
+                <CardContent className="p-6 flex-1 flex flex-col gap-4">
+                  {/* Nome */}
+                  <h3 className="text-lg font-semibold text-slate-900 line-clamp-1">
+                    {sala.nome}
+                  </h3>
 
-                  {/* Preço */}
-                  <div className="mb-3 pb-3 border-b">
-                    <p className="text-sm text-slate-600">Preço por hora</p>
-                    <p className="text-xl font-bold text-blue-600">
-                      R$ {sala.preco.toFixed(2)}
-                    </p>
+                  {/* Área + Preço inline */}
+                  <div className="text-sm text-slate-600 flex items-center gap-2">
+                    <span className="font-medium">{sala.area}</span>
+                    <span>•</span>
+                    <span className="font-semibold text-genki-forest-dark">
+                      R$ {sala.preco.toFixed(2)}/h
+                    </span>
                   </div>
 
-                  {/* Fotos e Vídeo */}
-                  <div className="mb-3 text-xs text-slate-600 space-y-1">
-                    <p>📸 {sala.fotos.length} fotos</p>
-                    {sala.video ? (
-                      <p>🎥 Vídeo disponível</p>
-                    ) : (
-                      <p className="text-amber-600 font-medium">🎥 Novidade em breve</p>
-                    )}
-                  </div>
+                  {/* Descrição - aparece no hover */}
+                  <p className="text-sm text-slate-600 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {sala.descricao}
+                  </p>
 
-                  {/* Botões */}
-                  <div className="flex gap-2 mt-auto">
+                  {/* Botão */}
+                  <div className="mt-auto">
                     <Button
                       onClick={() => visualizarDetalhes(sala.id)}
                       variant="outline"
-                      size="sm"
-                      className="flex-1"
+                      className="w-full border-genki-green text-genki-forest-dark hover:bg-genki-green hover:text-white transition-colors"
                     >
-                      <Eye size={14} className="mr-1" />
                       Ver Detalhes
-                    </Button>
-                    <Button
-                      onClick={abrirWhatsApp}
-                      size="sm"
-                      className="flex-1 bg-green-500 hover:bg-green-600"
-                    >
-                      <MessageCircle size={14} className="mr-1" />
-                      Alugar
+                      <Eye size={16} className="ml-2" />
                     </Button>
                   </div>
                 </CardContent>
