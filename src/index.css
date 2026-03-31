@@ -1,0 +1,473 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cores GENKI - Paleta Verde Floresta Profunda + Rosa Vibrante */
+    --genki-forest-dark: 160 55% 20%;
+    /* Verde Floresta Profundo (Principal) */
+    --genki-green: 160 50% 30%;
+    /* Verde Médio */
+    --genki-green-light: 160 45% 45%;
+    /* Verde Claro */
+    --genki-aqua: 160 40% 60%;
+    /* Verde Água */
+    --genki-mint: 160 35% 80%;
+    /* Verde Menta */
+    --genki-fog: 160 30% 92%;
+    /* Verde Névoa */
+    --genki-white: 45 18% 94%;
+    /* Branco Estrela */
+    --genki-text: 160 55% 15%;
+    /* Verde Escuro para Textos */
+    --genki-rose-gold: 350 100% 85%;
+    /* Rosa Vibrante - Complementar */
+
+    /* Cores Base do Sistema */
+    --background: 45 18% 94%;
+    /* Branco Estrela */
+    --foreground: 163 48% 15%;
+    /* Verde Escuro para textos */
+
+    --card: 0 0% 100%;
+    --card-foreground: 163 48% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 163 48% 15%;
+
+    --primary: 160 55% 20%;
+    /* Verde Floresta Principal */
+    --primary-foreground: 45 18% 94%;
+    /* Branco Estrela */
+    --primary-hover: 160 55% 15%;
+    /* Verde Floresta mais escuro */
+
+    --secondary: 163 38% 76%;
+    /* Verde Menta */
+    --secondary-foreground: 163 48% 15%;
+
+    --muted: 163 36% 88%;
+    /* Verde Névoa */
+    --muted-foreground: 163 48% 40%;
+
+    --accent: 350 100% 85%;
+    /* Rosa Vibrante */
+    --accent-foreground: 160 55% 15%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 162 54% 42%;
+    /* Verde GENKI */
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 92% 15%;
+
+    --critical: 0 84% 60%;
+    --critical-foreground: 0 0% 100%;
+
+    --border: 163 36% 88%;
+    /* Verde Névoa */
+    --input: 163 36% 88%;
+    --ring: 163 52% 36%;
+    /* Verde Teal */
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 160 55% 15%;
+    /* Verde Escuro */
+    --sidebar-foreground: 45 18% 94%;
+    /* Branco Estrela */
+    --sidebar-primary: 160 50% 30%;
+    /* Verde Médio */
+    --sidebar-primary-foreground: 45 18% 94%;
+    --sidebar-accent: 160 55% 20%;
+    /* Verde Floresta */
+    --sidebar-accent-foreground: 45 18% 94%;
+    --sidebar-border: 160 50% 25%;
+    --sidebar-ring: 160 50% 30%;
+
+    /* Custom gradients GENKI */
+    --gradient-primary: linear-gradient(135deg, hsl(160 55% 20%) 0%, hsl(160 50% 30%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(160 55% 15%) 0%, hsl(160 55% 20%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(160 30% 92%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(160 50% 30%) 0%, hsl(160 45% 45%) 100%);
+    --gradient-tropical: linear-gradient(135deg, hsl(160 55% 20%) 0%, hsl(160 50% 30%) 50%, hsl(160 45% 45%) 100%);
+    --gradient-rose: linear-gradient(135deg, hsl(350 100% 85%) 0%, hsl(350 100% 80%) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(160 55% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(160 55% 15% / 0.08), 0 2px 4px -2px hsl(160 55% 15% / 0.05);
+    --shadow-lg: 0 10px 15px -3px hsl(160 55% 15% / 0.08), 0 4px 6px -4px hsl(160 55% 15% / 0.05);
+    --shadow-xl: 0 20px 25px -5px hsl(160 55% 15% / 0.1), 0 8px 10px -6px hsl(160 55% 15% / 0.05);
+    --shadow-glow: 0 0 20px hsl(160 55% 20% / 0.3);
+  }
+
+  .dark {
+    /* Modo Escuro GENKI - Versão Verde Floresta Profunda */
+    --background: 160 55% 8%;
+    /* Verde muito escuro */
+    --foreground: 45 18% 94%;
+    /* Branco Estrela */
+
+    --card: 160 55% 10%;
+    --card-foreground: 45 18% 94%;
+
+    --popover: 160 55% 10%;
+    --popover-foreground: 45 18% 94%;
+
+    --primary: 160 50% 30%;
+    /* Verde Médio */
+    --primary-foreground: 45 18% 94%;
+    --primary-hover: 160 50% 35%;
+
+    --secondary: 160 55% 15%;
+    --secondary-foreground: 45 18% 94%;
+
+    --muted: 160 55% 12%;
+    --muted-foreground: 160 30% 70%;
+
+    --accent: 350 100% 85%;
+    /* Rosa Vibrante */
+    --accent-foreground: 160 55% 15%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 160 50% 30%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 38 92% 10%;
+
+    --critical: 0 84% 55%;
+    --critical-foreground: 0 0% 100%;
+
+    --border: 163 48% 22%;
+    --input: 163 48% 22%;
+    --ring: 163 48% 45%;
+
+    --sidebar-background: 163 48% 8%;
+    --sidebar-foreground: 45 18% 94%;
+    --sidebar-primary: 163 48% 45%;
+    --sidebar-primary-foreground: 45 18% 94%;
+    --sidebar-accent: 163 52% 36%;
+    --sidebar-accent-foreground: 45 18% 94%;
+    --sidebar-border: 163 48% 15%;
+    --sidebar-ring: 163 48% 45%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(163 52% 40%) 0%, hsl(163 48% 45%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(163 48% 8%) 0%, hsl(163 52% 36%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(163 48% 13%) 0%, hsl(163 48% 10%) 100%);
+    --gradient-tropical: linear-gradient(135deg, hsl(163 52% 36%) 0%, hsl(163 48% 45%) 50%, hsl(163 44% 55%) 100%);
+
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.2);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -2px hsl(0 0% 0% / 0.2);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.3), 0 4px 6px -4px hsl(0 0% 0% / 0.2);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.4), 0 8px 10px -6px hsl(0 0% 0% / 0.3);
+    --shadow-glow: 0 0 20px hsl(163 48% 45% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer utilities {
+
+  /* Classes utilitárias GENKI */
+  .bg-genki-forest {
+    background-color: hsl(var(--genki-forest-dark));
+  }
+
+  .bg-genki-green {
+    background-color: hsl(var(--genki-green));
+  }
+
+  .bg-genki-light {
+    background-color: hsl(var(--genki-green-light));
+  }
+
+  .bg-genki-aqua {
+    background-color: hsl(var(--genki-aqua));
+  }
+
+  .bg-genki-mint {
+    background-color: hsl(var(--genki-mint));
+  }
+
+  .bg-genki-fog {
+    background-color: hsl(var(--genki-fog));
+  }
+
+  .bg-genki-white {
+    background-color: hsl(var(--genki-white));
+  }
+
+  .bg-genki-rose {
+    background-color: hsl(var(--genki-rose-gold));
+  }
+
+  .text-genki-forest {
+    color: hsl(var(--genki-forest-dark));
+  }
+
+  .text-genki-green {
+    color: hsl(var(--genki-green));
+  }
+
+  .text-genki-text {
+    color: hsl(var(--genki-text));
+  }
+
+  .text-genki-light {
+    color: hsl(var(--genki-green-light));
+  }
+
+  .border-genki-forest {
+    border-color: hsl(var(--genki-forest-dark));
+  }
+
+  .border-genki-green {
+    border-color: hsl(var(--genki-green));
+  }
+
+  .border-genki-mint {
+    border-color: hsl(var(--genki-mint));
+  }
+
+  /* Gradientes GENKI */
+  .gradient-tropical {
+    background: var(--gradient-tropical);
+  }
+
+  .gradient-rose {
+    background: var(--gradient-rose);
+  }
+
+  /* Efeitos de conexão entre seções */
+  .section-connector {
+    position: relative;
+  }
+
+  .section-connector::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, currentColor);
+    opacity: 0.3;
+  }
+
+  .floating-element {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+
+    0%,
+    100% {
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+    }
+
+    50% {
+      box-shadow: 0 0 40px rgba(16, 185, 129, 0.4);
+    }
+  }
+
+  /* Elementos decorativos fluidos */
+  .fluid-bg::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .fluid-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(66, 144, 119, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .glass {
+    @apply bg-card/80 backdrop-blur-md;
+  }
+
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-md);
+  }
+
+  .shadow-card-hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.3s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out forwards;
+  }
+
+  .animate-pulse-soft {
+    animation: pulseSoft 2s ease-in-out infinite;
+  }
+
+  .priority-critical {
+    @apply bg-critical text-critical-foreground;
+  }
+
+  .priority-medium {
+    @apply bg-warning text-warning-foreground;
+  }
+
+  .priority-normal {
+    @apply bg-success text-success-foreground;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseSoft {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted/50 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50 transition-colors;
+}
