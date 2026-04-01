@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase';
 
 interface ServicosContextType {
   servicos: Servico[];
-  atualizarServico: (id: string, dados: Partial<Servico>) => void;
+  atualizarServico: (id: string, dados: Partial<Servico>) => Promise<void>;
   carregarServicos: () => void;
 }
 
@@ -87,11 +87,18 @@ export function ServicosProvider({ children }: { children: React.ReactNode }) {
     };
     setServicos(servicosAtualizados);
 
+    const row = servicoParaRow(servicosAtualizados[servicoIndex]);
+    const { id: rowId, ...rowSemId } = row;
+
     const { error } = await supabase
       .from('servicos')
-      .upsert(servicoParaRow(servicosAtualizados[servicoIndex]));
+      .update(rowSemId)
+      .eq('id', rowId);
 
-    if (error) console.error('Erro ao salvar serviço no Supabase:', error);
+    if (error) {
+      console.error('Erro ao salvar serviço no Supabase:', error);
+      throw new Error(error.message);
+    }
   };
 
   return (

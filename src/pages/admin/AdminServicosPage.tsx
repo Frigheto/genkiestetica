@@ -92,16 +92,20 @@ export default function AdminServicosPage() {
     toast.success('Vídeo atualizado com sucesso!');
   };
 
-  const handlePhotosChange = (servicoId: string, photos: Servico['fotos']) => {
-    atualizarServico(servicoId, { fotos: photos });
-    toast.success('Fotos atualizadas com sucesso!');
+  const handlePhotosChange = async (servicoId: string, photos: Servico['fotos']) => {
+    try {
+      await atualizarServico(servicoId, { fotos: photos });
+      toast.success('Fotos atualizadas com sucesso!');
+    } catch {
+      toast.error('Erro ao salvar fotos. Verifique a conexão com o Supabase.');
+    }
   };
 
   const handleHeroUrlChange = (servicoId: string, url: string) => {
     setHeroUrls((prev) => ({ ...prev, [servicoId]: url }));
   };
 
-  const handleHeroSaveUrl = (servicoId: string) => {
+  const handleHeroSaveUrl = async (servicoId: string) => {
     const url = heroUrls[servicoId]?.trim();
     if (!url) {
       toast.error('Digite uma URL válida');
@@ -113,8 +117,13 @@ export default function AdminServicosPage() {
       toast.error('URL inválida');
       return;
     }
-    atualizarServico(servicoId, { heroImage: url });
-    toast.success('Imagem de capa atualizada!');
+    try {
+      await atualizarServico(servicoId, { heroImage: url });
+      toast.success('Imagem de capa atualizada!');
+      setHeroUrls((prev) => ({ ...prev, [servicoId]: '' }));
+    } catch {
+      toast.error('Erro ao salvar. Verifique a conexão com o Supabase.');
+    }
   };
 
   const handleHeroFileUpload = async (servicoId: string, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,7 +137,7 @@ export default function AdminServicosPage() {
     try {
       const compressed = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1920, useWebWorker: true });
       const publicUrl = await uploadFoto(compressed, 'hero');
-      atualizarServico(servicoId, { heroImage: publicUrl });
+      await atualizarServico(servicoId, { heroImage: publicUrl });
       toast.success('Imagem de capa atualizada!');
       if (heroFileRefs.current[servicoId]) {
         heroFileRefs.current[servicoId]!.value = '';

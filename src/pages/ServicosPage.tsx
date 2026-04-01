@@ -87,7 +87,7 @@ export default function ServicosPage() {
             {servicosEstaticos.map((servico, index) => {
               const servicoContexto = servicos.find((s) => s.id === servico.id);
               const imagemAtual =
-                servicoContexto?.fotos?.[0]?.url || servico.imagePadrao;
+                servicoContexto?.heroImage || servico.imagePadrao;
               return (
               <div
                 key={servico.title}
