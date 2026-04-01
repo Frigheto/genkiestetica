@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { AdminProvider, useAdmin } from "@/contexts/AdminContext";
 import { SalasProvider } from "@/contexts/SalasContext";
 import { ServicosProvider } from "@/contexts/ServicosContext";
+import { ConfiguracoesProvider } from "@/contexts/ConfiguracoesContext";
 import ScrollToTop from "@/components/ScrollToTop";
 
 // Layout
@@ -153,6 +154,7 @@ const App = () => (
       <AuthProvider>
         <SalasProvider>
           <ServicosProvider>
+            <ConfiguracoesProvider>
             <TooltipProvider>
               <Toaster />
               <Sonner />
@@ -161,6 +163,7 @@ const App = () => (
                 <AppRoutes />
               </BrowserRouter>
             </TooltipProvider>
+            </ConfiguracoesProvider>
           </ServicosProvider>
         </SalasProvider>
       </AuthProvider>

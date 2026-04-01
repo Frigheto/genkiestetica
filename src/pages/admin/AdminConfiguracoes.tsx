@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,36 +8,29 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { ArrowLeft, Settings, Save, Globe, Mail, Phone, MapPin, Clock } from "lucide-react";
 import { toast } from "sonner";
+import { useConfiguracoes } from '@/contexts/ConfiguracoesContext';
 
 export default function AdminConfiguracoes() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const { config, salvarConfig } = useConfiguracoes();
+  const [localConfig, setLocalConfig] = useState(config);
 
-  // Configurações do site
-  const [config, setConfig] = useState({
-    siteName: "GENKI",
-    siteDescription: "Clínica de Estética, Fisioterapia, Massoterapia e Pilates",
-    email: "genki.estetica@gmail.com",
-    phone: "(55) 99191-1033",
-    whatsapp: "5555991911033",
-    address: "Rua Serafim Valandro, 613, Centro - Santa Maria/RS",
-    cep: "97010-480",
-    horarioSemana: "Segunda a Sexta: 8h às 19h",
-    horarioSabado: "Sábado: 8h às 18h",
-    facebook: "",
-    instagram: "",
-    maintenanceMode: false,
-  });
+  useEffect(() => {
+    setLocalConfig(config);
+  }, [config]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsLoading(true);
-    // Salvar configurações no localStorage
-    localStorage.setItem("siteConfig", JSON.stringify(config));
-    
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      await salvarConfig(localConfig);
       toast.success("Configurações salvas com sucesso!");
-    }, 1000);
+    } catch (err) {
+      toast.error("Erro ao salvar configurações. Tente novamente.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -85,16 +78,16 @@ export default function AdminConfiguracoes() {
                 <Label htmlFor="siteName">Nome do Site</Label>
                 <Input
                   id="siteName"
-                  value={config.siteName}
-                  onChange={(e) => setConfig({ ...config, siteName: e.target.value })}
+                  value={localConfig.siteName}
+                  onChange={(e) => setLocalConfig({ ...localConfig, siteName: e.target.value })}
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="siteDescription">Descrição</Label>
                 <Textarea
                   id="siteDescription"
-                  value={config.siteDescription}
-                  onChange={(e) => setConfig({ ...config, siteDescription: e.target.value })}
+                  value={localConfig.siteDescription}
+                  onChange={(e) => setLocalConfig({ ...localConfig, siteDescription: e.target.value })}
                   rows={3}
                 />
               </div>
@@ -116,8 +109,8 @@ export default function AdminConfiguracoes() {
                 <Input
                   id="email"
                   type="email"
-                  value={config.email}
-                  onChange={(e) => setConfig({ ...config, email: e.target.value })}
+                  value={localConfig.email}
+                  onChange={(e) => setLocalConfig({ ...localConfig, email: e.target.value })}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -128,16 +121,16 @@ export default function AdminConfiguracoes() {
                   </Label>
                   <Input
                     id="phone"
-                    value={config.phone}
-                    onChange={(e) => setConfig({ ...config, phone: e.target.value })}
+                    value={localConfig.phone}
+                    onChange={(e) => setLocalConfig({ ...localConfig, phone: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="whatsapp">WhatsApp (apenas números)</Label>
                   <Input
                     id="whatsapp"
-                    value={config.whatsapp}
-                    onChange={(e) => setConfig({ ...config, whatsapp: e.target.value })}
+                    value={localConfig.whatsapp}
+                    onChange={(e) => setLocalConfig({ ...localConfig, whatsapp: e.target.value })}
                   />
                 </div>
               </div>
@@ -158,16 +151,16 @@ export default function AdminConfiguracoes() {
                 </Label>
                 <Input
                   id="address"
-                  value={config.address}
-                  onChange={(e) => setConfig({ ...config, address: e.target.value })}
+                  value={localConfig.address}
+                  onChange={(e) => setLocalConfig({ ...localConfig, address: e.target.value })}
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="cep">CEP</Label>
                 <Input
                   id="cep"
-                  value={config.cep}
-                  onChange={(e) => setConfig({ ...config, cep: e.target.value })}
+                  value={localConfig.cep}
+                  onChange={(e) => setLocalConfig({ ...localConfig, cep: e.target.value })}
                 />
               </div>
             </CardContent>
@@ -187,16 +180,16 @@ export default function AdminConfiguracoes() {
                 </Label>
                 <Input
                   id="horarioSemana"
-                  value={config.horarioSemana}
-                  onChange={(e) => setConfig({ ...config, horarioSemana: e.target.value })}
+                  value={localConfig.horarioSemana}
+                  onChange={(e) => setLocalConfig({ ...localConfig, horarioSemana: e.target.value })}
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="horarioSabado">Sábado</Label>
                 <Input
                   id="horarioSabado"
-                  value={config.horarioSabado}
-                  onChange={(e) => setConfig({ ...config, horarioSabado: e.target.value })}
+                  value={localConfig.horarioSabado}
+                  onChange={(e) => setLocalConfig({ ...localConfig, horarioSabado: e.target.value })}
                 />
               </div>
             </CardContent>
@@ -214,8 +207,8 @@ export default function AdminConfiguracoes() {
                 <Input
                   id="instagram"
                   placeholder="https://instagram.com/genki"
-                  value={config.instagram}
-                  onChange={(e) => setConfig({ ...config, instagram: e.target.value })}
+                  value={localConfig.instagram}
+                  onChange={(e) => setLocalConfig({ ...localConfig, instagram: e.target.value })}
                 />
               </div>
               <div className="space-y-2">
@@ -223,8 +216,8 @@ export default function AdminConfiguracoes() {
                 <Input
                   id="facebook"
                   placeholder="https://facebook.com/genki"
-                  value={config.facebook}
-                  onChange={(e) => setConfig({ ...config, facebook: e.target.value })}
+                  value={localConfig.facebook}
+                  onChange={(e) => setLocalConfig({ ...localConfig, facebook: e.target.value })}
                 />
               </div>
             </CardContent>
@@ -245,9 +238,9 @@ export default function AdminConfiguracoes() {
                   </p>
                 </div>
                 <Switch
-                  checked={config.maintenanceMode}
+                  checked={localConfig.maintenanceMode}
                   onCheckedChange={(checked) =>
-                    setConfig({ ...config, maintenanceMode: checked })
+                    setLocalConfig({ ...localConfig, maintenanceMode: checked })
                   }
                 />
               </div>

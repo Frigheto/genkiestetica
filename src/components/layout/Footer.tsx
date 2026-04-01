@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Instagram, Facebook, Phone, Mail, MapPin, Clock } from "lucide-react";
+import { useConfiguracoes } from '@/contexts/ConfiguracoesContext';
 
 export default function Footer() {
+  const { config } = useConfiguracoes();
   return (
     <footer className="bg-slate-900 text-white">
       <div className="container mx-auto px-4 py-16">
@@ -17,7 +19,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               <a
-                href="https://instagram.com"
+                href={config.instagram || 'https://instagram.com'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors"
@@ -25,7 +27,7 @@ export default function Footer() {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://facebook.com"
+                href={config.facebook || 'https://facebook.com'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors"
@@ -96,15 +98,13 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                 <span className="text-slate-400">
-                  Rua Serafim Valandro, 613<br />
-                  Centro - Santa Maria - RS<br />
-                  CEP 97010-480
+                  {config.address}
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                <a href="tel:+5555991911033" className="text-slate-400 hover:text-primary transition-colors">
-                  (55) 99191-1033
+                <a href={`tel:+${config.phone.replace(/\D/g, '')}`} className="text-slate-400 hover:text-primary transition-colors">
+                  {config.phone}
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -136,7 +136,7 @@ export default function Footer() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Localização GENKI - Rua Serafim Valandro, 613, Centro - Santa Maria/RS"
+              title={`Localização GENKI - ${config.address}`}
             ></iframe>
           </div>
         </div>

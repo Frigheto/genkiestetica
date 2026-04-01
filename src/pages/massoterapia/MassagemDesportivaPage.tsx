@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useConfiguracoes } from '@/contexts/ConfiguracoesContext';
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react";
 import {
@@ -10,6 +11,7 @@ import {
 import { useServicos } from '@/contexts/ServicosContext';
 
 export default function MassagemDesportivaPage() {
+  const { config } = useConfiguracoes();
   const { servicos } = useServicos();
   const servico = servicos.find((s) => s.id === 'massoterapia');
   const faqs = [
@@ -127,7 +129,7 @@ export default function MassagemDesportivaPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild size="lg" className="bg-white text-emerald-500 hover:bg-white/90">
-              <a href="https://wa.me/5555991911033" target="_blank" rel="noopener noreferrer">
+              <a href={`https://wa.me/${config.whatsapp}`} target="_blank" rel="noopener noreferrer">
                 Agendar Sessão
                 <ArrowRight className="ml-2 w-4 h-4" />
               </a>

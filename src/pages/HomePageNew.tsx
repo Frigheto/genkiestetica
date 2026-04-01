@@ -26,6 +26,7 @@ import {
   TropicalDivider,
 } from "@/components/SectionDividers";
 import { useServicos } from "@/contexts/ServicosContext";
+import { useConfiguracoes } from '@/contexts/ConfiguracoesContext';
 
 const servicosConfig = [
   {
@@ -60,6 +61,7 @@ const servicosConfig = [
 export default function HomePageNew() {
   const [scrollY, setScrollY] = useState(0);
   const { servicos: servicosSupabase } = useServicos();
+  const { config } = useConfiguracoes();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -193,7 +195,7 @@ export default function HomePageNew() {
                   className="border-2 border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white px-8 py-6 text-base rounded-full"
                   asChild
                 >
-                  <a href="https://wa.me/5555991911033" target="_blank" rel="noopener noreferrer">
+                  <a href={`https://wa.me/${config.whatsapp}`} target="_blank" rel="noopener noreferrer">
                     <Phone className="mr-2 h-5 w-5" />
                     AGENDE SEU HORÁRIO
                   </a>

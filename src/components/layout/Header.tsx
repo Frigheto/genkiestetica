@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Menu, X, ChevronDown, Phone, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useConfiguracoes } from '@/contexts/ConfiguracoesContext';
 
 interface HeaderProps {
   isLocatarioArea?: boolean;
@@ -19,6 +20,7 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicosOpen, setServicosOpen] = useState(false);
   const { isAuthenticated, logout } = useAuth();
+  const { config } = useConfiguracoes();
   const location = useLocation();
   const servicosRef = useRef<HTMLDivElement>(null);
 
@@ -136,7 +138,7 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
             </Link>
 
             <Button
-              onClick={() => window.open("https://wa.me/5555991911033", "_blank")}
+              onClick={() => window.open(`https://wa.me/${config.whatsapp}`, "_blank")}
               className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold rounded-full px-6 py-2 flex items-center gap-2 whitespace-nowrap"
             >
               <Calendar className="w-4 h-4" />
@@ -203,7 +205,7 @@ export default function Header({ isLocatarioArea }: HeaderProps) {
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  window.open("https://wa.me/5555991911033", "_blank");
+                  window.open(`https://wa.me/${config.whatsapp}`, "_blank");
                 }}
                 className="mx-6 mt-4 w-[calc(100%-48px)] bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold rounded-full py-3 flex items-center justify-center gap-2 transition-all"
               >

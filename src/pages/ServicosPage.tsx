@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Activity, Dumbbell, ArrowRight } from "lucide-react";
 import { useServicos } from "@/contexts/ServicosContext";
+import { useConfiguracoes } from '@/contexts/ConfiguracoesContext';
 
 const servicosEstaticos = [
   {
@@ -41,6 +42,7 @@ const servicosEstaticos = [
 ];
 
 export default function ServicosPage() {
+  const { config } = useConfiguracoes();
   const { servicos } = useServicos();
   return (
     <div className="min-h-screen pt-20">
@@ -145,7 +147,7 @@ export default function ServicosPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">
-              <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer">
+              <a href={`https://wa.me/${config.whatsapp}`} target="_blank" rel="noopener noreferrer">
                 Agendar pelo WhatsApp
               </a>
             </Button>

@@ -11,6 +11,7 @@ import {
   Phone,
   ArrowRight,
 } from "lucide-react";
+import { useConfiguracoes } from '@/contexts/ConfiguracoesContext';
 
 const equipe = [
   {
@@ -63,6 +64,7 @@ const valores = [
 ];
 
 export default function SobrePage() {
+  const { config } = useConfiguracoes();
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -254,8 +256,8 @@ export default function SobrePage() {
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Endereço</h3>
                     <p className="text-slate-600">
-                      Rua Serafim Valandro, 613<br />
-                      Centro - Santa Maria - RS, CEP 97010-480
+                      {config.address}<br />
+                      CEP {config.cep}
                     </p>
                   </div>
                 </div>
@@ -266,8 +268,8 @@ export default function SobrePage() {
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Horário de Funcionamento</h3>
                     <p className="text-slate-600">
-                      Segunda a Sexta: 8h às 19h<br />
-                      Sábado: 8h às 18h
+                      {config.horarioSemana}<br />
+                      {config.horarioSabado}
                     </p>
                   </div>
                 </div>
@@ -278,14 +280,14 @@ export default function SobrePage() {
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Contato</h3>
                     <p className="text-slate-600">
-                      (55) 99191-1033<br />
-                      genki.estetica@gmail.com
+                      {config.phone}<br />
+                      {config.email}
                     </p>
                   </div>
                 </div>
               </div>
               <Button asChild className="mt-8 bg-primary hover:bg-primary/90">
-                <a href="https://wa.me/5555991911033" target="_blank" rel="noopener noreferrer">
+                <a href={`https://wa.me/${config.whatsapp}`} target="_blank" rel="noopener noreferrer">
                   Falar pelo WhatsApp
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </a>

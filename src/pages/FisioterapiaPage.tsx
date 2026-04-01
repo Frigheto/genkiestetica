@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Activity, ArrowRight, CheckCircle } from "lucide-react";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { useServicos } from "@/contexts/ServicosContext";
+import { useConfiguracoes } from '@/contexts/ConfiguracoesContext';
 
 const tratamentos = [
   {
@@ -30,6 +31,7 @@ const tratamentos = [
 ];
 
 export default function FisioterapiaPage() {
+  const { config } = useConfiguracoes();
   const { servicos } = useServicos();
   const servico = servicos.find((s) => s.id === 'fisioterapia');
 
@@ -163,7 +165,7 @@ export default function FisioterapiaPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild size="lg" className="bg-white text-emerald-500 hover:bg-white/90">
-              <a href="https://wa.me/5555991911033" target="_blank" rel="noopener noreferrer">
+              <a href={`https://wa.me/${config.whatsapp}`} target="_blank" rel="noopener noreferrer">
                 Agendar Consulta
                 <ArrowRight className="ml-2 w-4 h-4" />
               </a>
