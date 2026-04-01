@@ -15,35 +15,40 @@ import {
   Building2,
   Phone,
 } from "lucide-react";
+import { useServicos } from "@/contexts/ServicosContext";
 
-const servicos = [
+const servicosConfig = [
   {
+    id: "estetica",
     icon: Sparkles,
     title: "Estética",
     description: "Tratamentos de beleza e rejuvenescimento com técnicas modernas, seguras e baseadas em evidências. Na GENKI, a estética é integrada à saúde.",
     href: "/servicos/estetica",
-    image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop",
+    imagePadrao: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop",
   },
   {
+    id: "fisioterapia",
     icon: Activity,
     title: "Fisioterapia",
     description: "A base da nossa história. Atuamos na prevenção, reabilitação e manutenção da funcionalidade do corpo, com atendimento individualizado e olhar clínico especializado.",
     href: "/servicos/fisioterapia",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop",
+    imagePadrao: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop",
   },
   {
+    id: "massoterapia",
     icon: Hand,
     title: "Massoterapia",
     description: "Massagens terapêuticas, relaxantes e desportivas para alívio de tensões e bem-estar completo.",
     href: "/servicos/massoterapia",
-    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=300&fit=crop",
+    imagePadrao: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=300&fit=crop",
   },
   {
+    id: "pilates",
     icon: Dumbbell,
     title: "Pilates",
     description: "Mais do que exercício, o Pilates na GENKI é um método de cuidado com o corpo. Trabalhamos força, mobilidade, postura e consciência corporal de forma personalizada.",
     href: "/servicos/pilates",
-    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=300&fit=crop",
+    imagePadrao: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=300&fit=crop",
   },
 ];
 
@@ -99,6 +104,7 @@ const estatisticas = [
 ];
 
 export default function HomePage() {
+  const { servicos: servicosSupabase } = useServicos();
   return (
     <div className="min-h-screen bg-slate-900">
       {/* Hero Section - TravelWorld Style */}
@@ -186,12 +192,15 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {servicos.map((servico, index) => (
+            {servicosConfig.map((servico) => {
+              const servicoSupabase = servicosSupabase.find((s) => s.id === servico.id);
+              const imagemAtual = servicoSupabase?.heroImage || servico.imagePadrao;
+              return (
               <Link key={servico.title} to={servico.href} className="group">
                 <Card className="h-full overflow-hidden hover:shadow-2xl hover:shadow-teal-500/20 transition-all duration-500 border-0 bg-slate-700/50 backdrop-blur-sm hover:scale-105">
                   <div className="relative h-56 overflow-hidden">
                     <img
-                      src={servico.image}
+                      src={imagemAtual}
                       alt={servico.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
@@ -222,7 +231,8 @@ export default function HomePage() {
                   </CardContent>
                 </Card>
               </Link>
-            ))}
+              );
+            })}
           </div>
 
           <div className="text-center">
