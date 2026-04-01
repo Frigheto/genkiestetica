@@ -65,7 +65,7 @@ export default function MassoterapiaPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('${servico.fotos?.[0]?.url || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&h=800&fit=crop'}')`,
+            backgroundImage: `url('${servico.heroImage}')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-slate-900/70" />

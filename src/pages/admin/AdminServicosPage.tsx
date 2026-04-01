@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,12 +12,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Edit, Image as ImageIcon, Video as VideoIcon, AlertCircle, CheckCircle } from 'lucide-react';
+import { Edit, Image as ImageIcon, Video as VideoIcon, AlertCircle, CheckCircle, Images } from 'lucide-react';
 import { Servico } from '@/types/servicos';
 import { useServicos } from '@/contexts/ServicosContext';
 import { ImageUploader } from '@/components/admin/ImageUploader';
 import { toast } from 'sonner';
 import { converterParaEmbed, validarUrlYoutube } from '@/utils/youtubeUtils';
+import { uploadFoto } from '@/lib/supabase';
+import imageCompression from 'browser-image-compression';
 
 export default function AdminServicosPage() {
   const { servicos, atualizarServico } = useServicos();
@@ -27,6 +29,11 @@ export default function AdminServicosPage() {
   const [erroVideo, setErroVideo] = useState<string | null>(null);
   const [videoValido, setVideoValido] = useState(false);
   const [urlEmbed, setUrlEmbed] = useState<string | null>(null);
+
+  // Estado para edição de hero image
+  const [heroUrls, setHeroUrls] = useState<Record<string, string>>({});
+  const [heroUploading, setHeroUploading] = useState<Record<string, boolean>>({});
+  const heroFileRefs = useRef<Record<string, HTMLInputElement | null>>({});
 
   const abrirEditar = (servico: Servico) => {
     setServicoEditandoId(servico.id);
@@ -90,6 +97,50 @@ export default function AdminServicosPage() {
     toast.success('Fotos atualizadas com sucesso!');
   };
 
+  const handleHeroUrlChange = (servicoId: string, url: string) => {
+    setHeroUrls((prev) => ({ ...prev, [servicoId]: url }));
+  };
+
+  const handleHeroSaveUrl = (servicoId: string) => {
+    const url = heroUrls[servicoId]?.trim();
+    if (!url) {
+      toast.error('Digite uma URL válida');
+      return;
+    }
+    try {
+      new URL(url);
+    } catch {
+      toast.error('URL inválida');
+      return;
+    }
+    atualizarServico(servicoId, { heroImage: url });
+    toast.success('Imagem de capa atualizada!');
+  };
+
+  const handleHeroFileUpload = async (servicoId: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      toast.error('Selecione uma imagem válida');
+      return;
+    }
+    setHeroUploading((prev) => ({ ...prev, [servicoId]: true }));
+    try {
+      const compressed = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1920, useWebWorker: true });
+      const publicUrl = await uploadFoto(compressed, 'hero');
+      atualizarServico(servicoId, { heroImage: publicUrl });
+      toast.success('Imagem de capa atualizada!');
+      if (heroFileRefs.current[servicoId]) {
+        heroFileRefs.current[servicoId]!.value = '';
+      }
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      toast.error(`Erro no upload: ${msg}`);
+    } finally {
+      setHeroUploading((prev) => ({ ...prev, [servicoId]: false }));
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
@@ -99,8 +150,12 @@ export default function AdminServicosPage() {
         </p>
       </div>
 
-      <Tabs defaultValue="fotos" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs defaultValue="capa" className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="capa" className="flex items-center gap-2">
+            <Images className="h-4 w-4" />
+            Capa
+          </TabsTrigger>
           <TabsTrigger value="fotos" className="flex items-center gap-2">
             <ImageIcon className="h-4 w-4" />
             Fotos
@@ -110,6 +165,68 @@ export default function AdminServicosPage() {
             Vídeos
           </TabsTrigger>
         </TabsList>
+
+        {/* Aba de Imagem de Capa (Hero) */}
+        <TabsContent value="capa" className="mt-6">
+          <p className="text-sm text-muted-foreground mb-6">
+            A imagem de capa é exibida como fundo no topo da página de cada serviço.
+          </p>
+          <div className="grid gap-6">
+            {servicos.map((servico) => (
+              <Card key={`hero-${servico.id}`}>
+                <CardHeader>
+                  <CardTitle className="text-lg">{servico.nome}</CardTitle>
+                  <p className="text-sm text-muted-foreground">Imagem de capa de {servico.nome.toLowerCase()}</p>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {/* Preview atual */}
+                  <div className="relative rounded-lg overflow-hidden h-40 bg-slate-100">
+                    <img
+                      src={servico.heroImage}
+                      alt={`Capa ${servico.nome}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-slate-900/30 flex items-end p-2">
+                      <span className="text-white text-xs bg-slate-900/60 px-2 py-1 rounded">Imagem atual</span>
+                    </div>
+                  </div>
+
+                  {/* Upload de arquivo */}
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium">Fazer upload</label>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      ref={(el) => { heroFileRefs.current[servico.id] = el; }}
+                      onChange={(e) => handleHeroFileUpload(servico.id, e)}
+                      disabled={heroUploading[servico.id]}
+                    />
+                    {heroUploading[servico.id] && (
+                      <p className="text-xs text-genki-forest">Enviando imagem...</p>
+                    )}
+                  </div>
+
+                  {/* Ou URL */}
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium">Ou cole uma URL</label>
+                    <div className="flex gap-2">
+                      <Input
+                        type="url"
+                        placeholder="https://exemplo.com/imagem.jpg"
+                        value={heroUrls[servico.id] ?? ''}
+                        onChange={(e) => handleHeroUrlChange(servico.id, e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleHeroSaveUrl(servico.id)}
+                      />
+                      <Button onClick={() => handleHeroSaveUrl(servico.id)} variant="outline">
+                        Salvar
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
 
         {/* Aba de Fotos */}
         <TabsContent value="fotos" className="mt-6">

@@ -71,7 +71,7 @@ export default function EsteticaPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('${servico.fotos?.[0]?.url || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1920&h=800&fit=crop'}')`,
+            backgroundImage: `url('${servico.heroImage}')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-slate-900/70" />
