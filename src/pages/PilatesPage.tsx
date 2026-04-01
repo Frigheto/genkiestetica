@@ -146,12 +146,12 @@ export default function PilatesPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {modalidades.map((modalidade) => (
+            {modalidades.map((modalidade, index) => (
               <Link key={modalidade.nome} to={modalidade.link}>
                 <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-xl transition-shadow cursor-pointer">
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={modalidade.imagem}
+                      src={servico.fotos[index]?.url || modalidade.imagem}
                       alt={modalidade.nome}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />

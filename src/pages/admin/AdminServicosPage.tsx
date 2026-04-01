@@ -239,13 +239,21 @@ export default function AdminServicosPage() {
 
         {/* Aba de Fotos */}
         <TabsContent value="fotos" className="mt-6">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <p className="text-sm font-medium text-blue-900 mb-1">Como funciona</p>
+            <p className="text-sm text-blue-800">
+              Cada foto corresponde a um card de tratamento na ordem em que aparecem na página do serviço.
+              A <strong>1ª foto</strong> substitui o 1º tratamento, a <strong>2ª foto</strong> o 2º, e assim por diante.
+              Se não houver foto, a imagem padrão é exibida.
+            </p>
+          </div>
           <div className="grid gap-6">
             {servicos.map((servico) => (
               <Card key={`photos-${servico.id}`}>
                 <CardHeader>
                   <CardTitle className="text-lg">{servico.nome}</CardTitle>
                   <p className="text-sm text-muted-foreground">
-                    Gerenciar fotos de {servico.nome.toLowerCase()}
+                    Fotos dos cards de tratamento de {servico.nome.toLowerCase()}
                   </p>
                 </CardHeader>
                 <CardContent>

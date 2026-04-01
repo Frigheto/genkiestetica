@@ -137,12 +137,12 @@ export default function MassoterapiaPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {tratamentos.map((tratamento) => (
+            {tratamentos.map((tratamento, index) => (
               <Link key={tratamento.nome} to={tratamento.link}>
                 <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-xl transition-shadow cursor-pointer">
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={tratamento.imagem}
+                      src={servico.fotos[index]?.url || tratamento.imagem}
                       alt={tratamento.nome}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
