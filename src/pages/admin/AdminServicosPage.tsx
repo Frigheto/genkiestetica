@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Edit, Image as ImageIcon, Video as VideoIcon, AlertCircle, CheckCircle, Images } from 'lucide-react';
+import { Edit, Image as ImageIcon, Video as VideoIcon, AlertCircle, CheckCircle, Images, Layers } from 'lucide-react';
 import { Servico } from '@/types/servicos';
 import { useServicos } from '@/contexts/ServicosContext';
 import { ImageUploader } from '@/components/admin/ImageUploader';
@@ -34,6 +34,42 @@ export default function AdminServicosPage() {
   const [heroUrls, setHeroUrls] = useState<Record<string, string>>({});
   const [heroUploading, setHeroUploading] = useState<Record<string, boolean>>({});
   const heroFileRefs = useRef<Record<string, HTMLInputElement | null>>({});
+
+  // Estado para edição de subserviços
+  const [subUrls, setSubUrls] = useState<Record<string, string>>({});
+  const [subUploading, setSubUploading] = useState<Record<string, boolean>>({});
+  const subFileRefs = useRef<Record<string, HTMLInputElement | null>>({});
+
+  const SUBSERVICOS_CONFIG: Record<string, { key: string; nome: string }[]> = {
+    estetica: [
+      { key: 'rugas-linhas', nome: 'Rugas e linhas de expressão' },
+      { key: 'rejuvenescimento', nome: 'Rejuvenescimento e firmeza' },
+      { key: 'manchas', nome: 'Manchas' },
+      { key: 'flacidez-facial', nome: 'Flacidez facial' },
+      { key: 'flacidez-corporal', nome: 'Flacidez corporal' },
+      { key: 'gordura-localizada', nome: 'Gordura localizada' },
+    ],
+    fisioterapia: [
+      { key: 'ortopedica', nome: 'Fisioterapia Ortopédica' },
+      { key: 'neurologica', nome: 'Fisioterapia Neurológica' },
+      { key: 'rpg', nome: 'RPG (Reeducação Postural Global)' },
+      { key: 'pilates-clinico', nome: 'Pilates Clínico' },
+      { key: 'eletroterapia', nome: 'Eletroterapia' },
+      { key: 'respiratoria', nome: 'Fisioterapia Respiratória' },
+    ],
+    massoterapia: [
+      { key: 'relaxante', nome: 'Massagem Relaxante' },
+      { key: 'desportiva', nome: 'Massagem Desportiva' },
+      { key: 'drenagem-linfatica', nome: 'Drenagem Linfática' },
+      { key: 'modeladora', nome: 'Massagem Modeladora' },
+      { key: 'quick-massage', nome: 'Quick Massage' },
+      { key: 'pedras-quentes', nome: 'Massagem com Pedras Quentes' },
+    ],
+    pilates: [
+      { key: 'gestantes', nome: 'Pilates para Gestantes' },
+      { key: 'aparelhos', nome: 'Pilates com Aparelhos' },
+    ],
+  };
 
   const abrirEditar = (servico: Servico) => {
     setServicoEditandoId(servico.id);
@@ -126,6 +162,51 @@ export default function AdminServicosPage() {
     }
   };
 
+  const handleSubUrlChange = (subKey: string, url: string) => {
+    setSubUrls((prev) => ({ ...prev, [subKey]: url }));
+  };
+
+  const handleSubSaveUrl = async (servicoId: string, subKey: string) => {
+    const url = subUrls[subKey]?.trim();
+    if (!url) { toast.error('Digite uma URL válida'); return; }
+    try { new URL(url); } catch { toast.error('URL inválida'); return; }
+    const servico = servicos.find((s) => s.id === servicoId);
+    if (!servico) return;
+    try {
+      await atualizarServico(servicoId, {
+        subservicos: { ...(servico.subservicos ?? {}), [subKey]: url },
+      });
+      toast.success('Imagem do subserviço atualizada!');
+      setSubUrls((prev) => ({ ...prev, [subKey]: '' }));
+    } catch {
+      toast.error('Erro ao salvar. Verifique a conexão com o Supabase.');
+    }
+  };
+
+  const handleSubFileUpload = async (servicoId: string, subKey: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { toast.error('Selecione uma imagem válida'); return; }
+    const refKey = `${servicoId}-${subKey}`;
+    setSubUploading((prev) => ({ ...prev, [refKey]: true }));
+    try {
+      const compressed = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1920, useWebWorker: true });
+      const publicUrl = await uploadFoto(compressed, `subservicos/${servicoId}`);
+      const servico = servicos.find((s) => s.id === servicoId);
+      if (!servico) return;
+      await atualizarServico(servicoId, {
+        subservicos: { ...(servico.subservicos ?? {}), [subKey]: publicUrl },
+      });
+      toast.success('Imagem do subserviço atualizada!');
+      if (subFileRefs.current[refKey]) subFileRefs.current[refKey]!.value = '';
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      toast.error(`Erro no upload: ${msg}`);
+    } finally {
+      setSubUploading((prev) => ({ ...prev, [refKey]: false }));
+    }
+  };
+
   const handleHeroFileUpload = async (servicoId: string, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -160,7 +241,7 @@ export default function AdminServicosPage() {
       </div>
 
       <Tabs defaultValue="capa" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="capa" className="flex items-center gap-2">
             <Images className="h-4 w-4" />
             Capa
@@ -168,6 +249,10 @@ export default function AdminServicosPage() {
           <TabsTrigger value="fotos" className="flex items-center gap-2">
             <ImageIcon className="h-4 w-4" />
             Fotos
+          </TabsTrigger>
+          <TabsTrigger value="subservicos" className="flex items-center gap-2">
+            <Layers className="h-4 w-4" />
+            Subserviços
           </TabsTrigger>
           <TabsTrigger value="videos" className="flex items-center gap-2">
             <VideoIcon className="h-4 w-4" />
@@ -265,6 +350,93 @@ export default function AdminServicosPage() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </TabsContent>
+
+        {/* Aba de Subserviços */}
+        <TabsContent value="subservicos" className="mt-6">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <p className="text-sm font-medium text-blue-900 mb-1">Como funciona</p>
+            <p className="text-sm text-blue-800">
+              Cada subserviço tem sua própria imagem de capa (hero). Estas imagens aparecem no fundo
+              da página individual de cada tratamento (ex: Massagem Relaxante, Pilates para Gestantes, etc.).
+            </p>
+          </div>
+          <div className="grid gap-8">
+            {servicos.map((servico) => {
+              const subConfig = SUBSERVICOS_CONFIG[servico.id];
+              if (!subConfig || subConfig.length === 0) return null;
+              return (
+                <Card key={`sub-${servico.id}`}>
+                  <CardHeader>
+                    <CardTitle className="text-lg">{servico.nome}</CardTitle>
+                    <p className="text-sm text-muted-foreground">{subConfig.length} subserviços</p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid gap-6">
+                      {subConfig.map(({ key, nome }) => {
+                        const refKey = `${servico.id}-${key}`;
+                        const currentUrl = servico.subservicos?.[key];
+                        return (
+                          <div key={key} className="border rounded-lg p-4 space-y-3">
+                            <p className="font-medium text-sm">{nome}</p>
+                            {/* Preview */}
+                            <div className="relative rounded-lg overflow-hidden h-28 bg-slate-100">
+                              {currentUrl ? (
+                                <>
+                                  <img
+                                    src={currentUrl}
+                                    alt={nome}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute inset-0 bg-slate-900/20 flex items-end p-2">
+                                    <span className="text-white text-xs bg-slate-900/60 px-2 py-1 rounded">Imagem atual</span>
+                                  </div>
+                                </>
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center text-slate-400 text-xs">
+                                  Sem imagem personalizada — usando padrão
+                                </div>
+                              )}
+                            </div>
+                            {/* Upload */}
+                            <div className="space-y-1">
+                              <label className="text-xs font-medium text-slate-600">Fazer upload</label>
+                              <Input
+                                type="file"
+                                accept="image/*"
+                                ref={(el) => { subFileRefs.current[refKey] = el; }}
+                                onChange={(e) => handleSubFileUpload(servico.id, key, e)}
+                                disabled={subUploading[refKey]}
+                              />
+                              {subUploading[refKey] && (
+                                <p className="text-xs text-genki-forest">Enviando imagem...</p>
+                              )}
+                            </div>
+                            {/* URL */}
+                            <div className="space-y-1">
+                              <label className="text-xs font-medium text-slate-600">Ou cole uma URL</label>
+                              <div className="flex gap-2">
+                                <Input
+                                  type="url"
+                                  placeholder="https://exemplo.com/imagem.jpg"
+                                  value={subUrls[refKey] ?? ''}
+                                  onChange={(e) => handleSubUrlChange(refKey, e.target.value)}
+                                  onKeyDown={(e) => e.key === 'Enter' && handleSubSaveUrl(servico.id, key)}
+                                />
+                                <Button onClick={() => handleSubSaveUrl(servico.id, key)} variant="outline" size="sm">
+                                  Salvar
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </TabsContent>
 

@@ -7,8 +7,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useServicos } from '@/contexts/ServicosContext';
 
 export default function QuickMassagePage() {
+  const { servicos } = useServicos();
+  const servico = servicos.find((s) => s.id === 'massoterapia');
   const faqs = [
     {
       pergunta: "Quanto tempo dura a Quick Massage?",
@@ -42,7 +45,7 @@ export default function QuickMassagePage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1920&h=800&fit=crop')`,
+            backgroundImage: `url('${servico?.subservicos?.['quick-massage'] || 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1920&h=800&fit=crop'}')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-slate-900/70" />

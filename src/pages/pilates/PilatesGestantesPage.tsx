@@ -7,8 +7,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useServicos } from '@/contexts/ServicosContext';
 
 export default function PilatesGestantesPage() {
+  const { servicos } = useServicos();
+  const servico = servicos.find((s) => s.id === 'pilates');
   const faqs = [
     {
       pergunta: "A partir de quantas semanas posso começar?",
@@ -42,7 +45,7 @@ export default function PilatesGestantesPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1920&h=800&fit=crop')`,
+            backgroundImage: `url('${servico?.subservicos?.['gestantes'] || 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1920&h=800&fit=crop'}')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-slate-900/70" />

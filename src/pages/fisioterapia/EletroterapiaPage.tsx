@@ -7,8 +7,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useServicos } from '@/contexts/ServicosContext';
 
 export default function EletroterapiaPage() {
+  const { servicos } = useServicos();
+  const servico = servicos.find((s) => s.id === 'fisioterapia');
   const faqs = [
     {
       pergunta: "A eletroterapia dói ou causa choque?",
@@ -42,7 +45,7 @@ export default function EletroterapiaPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=1920&h=800&fit=crop')`,
+            backgroundImage: `url('${servico?.subservicos?.['eletroterapia'] || 'https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=1920&h=800&fit=crop'}')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-slate-900/70" />

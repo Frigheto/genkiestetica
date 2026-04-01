@@ -23,6 +23,7 @@ function rowParaServico(row: Record<string, unknown>): Servico {
     fotos: (row.fotos as Servico['fotos']) ?? [],
     videoUrl: (row.video_url as string) ?? undefined,
     videoTitulo: (row.video_titulo as string) ?? undefined,
+    subservicos: (row.subservicos as Record<string, string>) ?? {},
     updatedAt: new Date((row.updated_at as string) ?? Date.now()),
   };
 }
@@ -39,6 +40,7 @@ function servicoParaRow(s: Servico) {
     fotos: s.fotos,
     video_url: s.videoUrl ?? null,
     video_titulo: s.videoTitulo ?? null,
+    subservicos: s.subservicos ?? {},
     updated_at: new Date().toISOString(),
   };
 }

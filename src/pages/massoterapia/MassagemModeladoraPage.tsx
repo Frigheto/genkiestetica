@@ -7,8 +7,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useServicos } from '@/contexts/ServicosContext';
 
 export default function MassagemModeladoraPage() {
+  const { servicos } = useServicos();
+  const servico = servicos.find((s) => s.id === 'massoterapia');
   const faqs = [
     {
       pergunta: "A massagem modeladora dói?",
@@ -42,7 +45,7 @@ export default function MassagemModeladoraPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1920&h=800&fit=crop')`,
+            backgroundImage: `url('${servico?.subservicos?.['modeladora'] || 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1920&h=800&fit=crop'}')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-slate-900/70" />

@@ -7,8 +7,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useServicos } from '@/contexts/ServicosContext';
 
 export default function GorduraLocalizadaPage() {
+  const { servicos } = useServicos();
+  const servico = servicos.find((s) => s.id === 'estetica');
   const faqs = [
     {
       pergunta: "Quantas sessões são necessárias?",
@@ -43,7 +46,7 @@ export default function GorduraLocalizadaPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1552693673-1bf958298935?w=1920&h=800&fit=crop')`,
+            backgroundImage: `url('${servico?.subservicos?.['gordura-localizada'] || 'https://images.unsplash.com/photo-1552693673-1bf958298935?w=1920&h=800&fit=crop'}')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-slate-900/70" />

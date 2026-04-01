@@ -16,5 +16,6 @@ export interface Servico {
   fotos: Foto[];
   videoUrl?: string;
   videoTitulo?: string;
+  subservicos?: Record<string, string>;
   updatedAt: Date;
 }

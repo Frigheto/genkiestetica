@@ -7,8 +7,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useServicos } from '@/contexts/ServicosContext';
 
 export default function RejuvenescimentoPage() {
+  const { servicos } = useServicos();
+  const servico = servicos.find((s) => s.id === 'estetica');
   const faqs = [
     {
       pergunta: "Quantas sessões são necessárias?",
@@ -43,7 +46,7 @@ export default function RejuvenescimentoPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1920&h=800&fit=crop')`,
+            backgroundImage: `url('${servico?.subservicos?.['rejuvenescimento'] || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1920&h=800&fit=crop'}')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-slate-900/70" />

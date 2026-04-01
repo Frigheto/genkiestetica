@@ -7,8 +7,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useServicos } from '@/contexts/ServicosContext';
 
 export default function PilatesClinicoPage() {
+  const { servicos } = useServicos();
+  const servico = servicos.find((s) => s.id === 'fisioterapia');
   const faqs = [
     {
       pergunta: "Qual a diferença entre Pilates Clínico e Pilates tradicional?",
@@ -42,7 +45,7 @@ export default function PilatesClinicoPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1920&h=800&fit=crop')`,
+            backgroundImage: `url('${servico?.subservicos?.['pilates-clinico'] || 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1920&h=800&fit=crop'}')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-slate-900/70" />
