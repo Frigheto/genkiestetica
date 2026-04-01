@@ -57,14 +57,6 @@ export default function AdminServicosPage() {
       { key: 'eletroterapia', nome: 'Eletroterapia' },
       { key: 'respiratoria', nome: 'Fisioterapia Respiratória' },
     ],
-    massoterapia: [
-      { key: 'relaxante', nome: 'Massagem Relaxante' },
-      { key: 'desportiva', nome: 'Massagem Desportiva' },
-      { key: 'drenagem-linfatica', nome: 'Drenagem Linfática' },
-      { key: 'modeladora', nome: 'Massagem Modeladora' },
-      { key: 'quick-massage', nome: 'Quick Massage' },
-      { key: 'pedras-quentes', nome: 'Massagem com Pedras Quentes' },
-    ],
     pilates: [
       { key: 'gestantes', nome: 'Pilates para Gestantes' },
       { key: 'aparelhos', nome: 'Pilates com Aparelhos' },

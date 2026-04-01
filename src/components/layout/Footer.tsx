@@ -13,7 +13,7 @@ export default function Footer() {
             </Link>
             <p className="text-slate-400 mb-6">
               Clínica multidisciplinar de alto padrão, oferecendo os melhores tratamentos
-              em estética, fisioterapia, massoterapia e pilates.
+              em estética, fisioterapia e pilates.
             </p>
             <div className="flex gap-4">
               <a
@@ -79,11 +79,6 @@ export default function Footer() {
               <li>
                 <Link to="/servicos/fisioterapia" className="text-slate-400 hover:text-primary transition-colors">
                   Fisioterapia
-                </Link>
-              </li>
-              <li>
-                <Link to="/servicos/massoterapia" className="text-slate-400 hover:text-primary transition-colors">
-                  Massoterapia
                 </Link>
               </li>
               <li>

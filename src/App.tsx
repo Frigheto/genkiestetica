@@ -18,7 +18,6 @@ import SobrePage from "./pages/SobrePage";
 import ServicosPage from "./pages/ServicosPage";
 import EsteticaPage from "./pages/EsteticaPage";
 import FisioterapiaPage from "./pages/FisioterapiaPage";
-import MassoterapiaPage from "./pages/MassoterapiaPage";
 import PilatesPage from "./pages/PilatesPage";
 import AluguelSalasPage from "./pages/AluguelSalasPage";
 import SalaDetalhesPage from "./pages/SalaDetalhesPage";
@@ -40,14 +39,6 @@ import RPGPage from "./pages/fisioterapia/RPGPage";
 import PilatesClinicoPage from "./pages/fisioterapia/PilatesClinicoPage";
 import EletroterapiaPage from "./pages/fisioterapia/EletroterapiaPage";
 import FisioterapiaRespiratoriaPage from "./pages/fisioterapia/FisioterapiaRespiratoriaPage";
-
-// Páginas de Detalhes de Massoterapia
-import MassagemRelaxantePage from "./pages/massoterapia/MassagemRelaxantePage";
-import MassagemDesportivaPage from "./pages/massoterapia/MassagemDesportivaPage";
-import DrenagemLinfaticaPage from "./pages/massoterapia/DrenagemLinfaticaPage";
-import MassagemModeladoraPage from "./pages/massoterapia/MassagemModeladoraPage";
-import QuickMassagePage from "./pages/massoterapia/QuickMassagePage";
-import MassagemPedrasQuentesPage from "./pages/massoterapia/MassagemPedrasQuentesPage";
 
 // Páginas de Detalhes de Pilates
 import PilatesGestantesPage from "./pages/pilates/PilatesGestantesPage";
@@ -79,7 +70,6 @@ function AppRoutes() {
         <Route path="/servicos" element={<ServicosPage />} />
         <Route path="/servicos/estetica" element={<EsteticaPage />} />
         <Route path="/servicos/fisioterapia" element={<FisioterapiaPage />} />
-        <Route path="/servicos/massoterapia" element={<MassoterapiaPage />} />
         <Route path="/servicos/pilates" element={<PilatesPage />} />
         <Route path="/aluguel-salas" element={<AluguelSalasPage />} />
         <Route path="/aluguel-salas/:salaId" element={<SalaDetalhesPage />} />
@@ -100,13 +90,6 @@ function AppRoutes() {
         <Route path="/fisioterapia/eletroterapia" element={<EletroterapiaPage />} />
         <Route path="/fisioterapia/respiratoria" element={<FisioterapiaRespiratoriaPage />} />
         
-        {/* Páginas de Detalhes de Massoterapia */}
-        <Route path="/massoterapia/relaxante" element={<MassagemRelaxantePage />} />
-        <Route path="/massoterapia/desportiva" element={<MassagemDesportivaPage />} />
-        <Route path="/massoterapia/drenagem-linfatica" element={<DrenagemLinfaticaPage />} />
-        <Route path="/massoterapia/modeladora" element={<MassagemModeladoraPage />} />
-        <Route path="/massoterapia/quick-massage" element={<QuickMassagePage />} />
-        <Route path="/massoterapia/pedras-quentes" element={<MassagemPedrasQuentesPage />} />
         
         {/* Páginas de Detalhes de Pilates */}
         <Route path="/pilates/gestantes" element={<PilatesGestantesPage />} />

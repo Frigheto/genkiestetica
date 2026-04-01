@@ -12,7 +12,6 @@ interface HeaderProps {
 const servicos = [
   { name: "Estética", href: "/servicos/estetica" },
   { name: "Fisioterapia", href: "/servicos/fisioterapia" },
-  { name: "Massoterapia", href: "/servicos/massoterapia" },
   { name: "Pilates", href: "/servicos/pilates" },
 ];
 

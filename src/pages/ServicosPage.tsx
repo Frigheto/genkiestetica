@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Activity, Hand, Dumbbell, ArrowRight } from "lucide-react";
+import { Sparkles, Activity, Dumbbell, ArrowRight } from "lucide-react";
 import { useServicos } from "@/contexts/ServicosContext";
 
 const servicosEstaticos = [
@@ -26,17 +26,6 @@ const servicosEstaticos = [
     href: "/servicos/fisioterapia",
     imagePadrao: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
     cor: "from-blue-500 to-cyan-500",
-  },
-  {
-    id: "massoterapia",
-    icon: Hand,
-    title: "Massoterapia",
-    description:
-      "Técnicas de massagem para relaxamento, alívio de tensões e tratamento de dores musculares. Ambiente acolhedor e profissionais certificados.",
-    tratamentos: ["Massagem Relaxante", "Massagem Desportiva", "Drenagem Linfática", "Massagem Modeladora", "Quick Massage"],
-    href: "/servicos/massoterapia",
-    imagePadrao: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=400&fit=crop",
-    cor: "from-purple-500 to-violet-500",
   },
   {
     id: "pilates",

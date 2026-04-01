@@ -38,24 +38,6 @@ export const servicosData: Servico[] = [
     updatedAt: new Date('2026-01-01'),
   },
   {
-    id: 'massoterapia',
-    nome: 'Massoterapia',
-    titulo: 'Descubra os Benefícios da Massoterapia',
-    descricao: 'Técnicas de massagem para relaxamento, alívio de tensões e tratamento de dores musculares. Ambiente acolhedor e profissionais certificados para cuidar do seu bem-estar.',
-    heroImage: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&h=800&fit=crop',
-    icon: 'Hand',
-    color: 'from-purple-500 to-violet-500',
-    fotos: [
-      {
-        id: 'massa-1',
-        url: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=300&fit=crop',
-        titulo: 'Massagem relaxante',
-        ordem: 1,
-      },
-    ],
-    updatedAt: new Date('2026-01-01'),
-  },
-  {
     id: 'pilates',
     nome: 'Pilates',
     titulo: 'Conheça o Método Pilates',

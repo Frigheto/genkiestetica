@@ -47,15 +47,6 @@ const servicosConfig = [
     color: "from-blue-500 to-cyan-500",
   },
   {
-    id: "massoterapia",
-    icon: Hand,
-    title: "Massoterapia",
-    description: "Massagens terapêuticas para relaxamento profundo",
-    imagePadrao: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=400&fit=crop",
-    href: "/servicos/massoterapia",
-    color: "from-purple-500 to-indigo-500",
-  },
-  {
     id: "pilates",
     icon: Dumbbell,
     title: "Pilates",
@@ -161,8 +152,8 @@ export default function HomePageNew() {
 
               {/* Subtítulo */}
               <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
-                Excelência em tratamentos integrados de estética, fisioterapia,
-                massoterapia e pilates. Uma estrutura completa dedicada ao seu bem-estar.
+                Excelência em tratamentos integrados de estética, fisioterapia
+                e pilates. Uma estrutura completa dedicada ao seu bem-estar.
               </p>
 
               {/* Cards Glass com Destaques */}
