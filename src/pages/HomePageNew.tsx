@@ -25,9 +25,50 @@ import {
   CurveDivider,
   TropicalDivider,
 } from "@/components/SectionDividers";
+import { useServicos } from "@/contexts/ServicosContext";
+
+const servicosConfig = [
+  {
+    id: "estetica",
+    icon: Sparkles,
+    title: "Estética",
+    description: "Tratamentos faciais e corporais com tecnologia avançada",
+    imagePadrao: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=400&fit=crop",
+    href: "/servicos/estetica",
+    color: "from-pink-500 to-rose-500",
+  },
+  {
+    id: "fisioterapia",
+    icon: Activity,
+    title: "Fisioterapia",
+    description: "Reabilitação e prevenção com equipe especializada",
+    imagePadrao: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
+    href: "/servicos/fisioterapia",
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    id: "massoterapia",
+    icon: Hand,
+    title: "Massoterapia",
+    description: "Massagens terapêuticas para relaxamento profundo",
+    imagePadrao: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=400&fit=crop",
+    href: "/servicos/massoterapia",
+    color: "from-purple-500 to-indigo-500",
+  },
+  {
+    id: "pilates",
+    icon: Dumbbell,
+    title: "Pilates",
+    description: "Fortalecimento e consciência corporal completa",
+    imagePadrao: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&h=400&fit=crop",
+    href: "/servicos/pilates",
+    color: "from-green-500 to-emerald-500",
+  },
+];
 
 export default function HomePageNew() {
   const [scrollY, setScrollY] = useState(0);
+  const { servicos: servicosSupabase } = useServicos();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -263,46 +304,16 @@ export default function HomePageNew() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Sparkles,
-                title: "Estética",
-                description: "Tratamentos faciais e corporais com tecnologia avançada",
-                image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=400&fit=crop",
-                href: "/servicos/estetica",
-                color: "from-pink-500 to-rose-500",
-              },
-              {
-                icon: Activity,
-                title: "Fisioterapia",
-                description: "Reabilitação e prevenção com equipe especializada",
-                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
-                href: "/servicos/fisioterapia",
-                color: "from-blue-500 to-cyan-500",
-              },
-              {
-                icon: Hand,
-                title: "Massoterapia",
-                description: "Massagens terapêuticas para relaxamento profundo",
-                image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=400&fit=crop",
-                href: "/servicos/massoterapia",
-                color: "from-purple-500 to-indigo-500",
-              },
-              {
-                icon: Dumbbell,
-                title: "Pilates",
-                description: "Fortalecimento e consciência corporal completa",
-                image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&h=400&fit=crop",
-                href: "/servicos/pilates",
-                color: "from-green-500 to-emerald-500",
-              },
-            ].map((service, index) => (
+            {servicosConfig.map((service, index) => {
+              const servicoSupabase = servicosSupabase.find((s) => s.id === service.id);
+              const imagemAtual = servicoSupabase?.heroImage || service.imagePadrao;
+              return (
               <Link key={index} to={service.href} className="group">
                 <Card className="overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white">
                   {/* Image with Overlay */}
                   <div className="relative h-64 overflow-hidden">
                     <img
-                      src={service.image}
+                      src={imagemAtual}
                       alt={service.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
@@ -336,7 +347,8 @@ export default function HomePageNew() {
                   </div>
                 </Card>
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
